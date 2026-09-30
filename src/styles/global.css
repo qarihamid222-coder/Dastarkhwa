@@ -182,6 +182,7 @@ main:focus { outline: none; }
 .card__desc { color: var(--muted); font-size: .95rem; flex: 1; }
 .card__foot { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-top: .5rem; }
 .price { margin: 0; font-weight: 700; color: var(--green-900); font-size: 1.05rem; }
+.price__note { font-weight: 500; font-size: .82rem; color: var(--muted); }
 .price--missing { color: var(--maroon); font-size: .9rem; }
 .badge { padding: .35rem .8rem; border-radius: 999px; background: var(--cream-200); color: var(--muted); font-weight: 600; font-size: .82rem; }
 .empty, .menu-note { text-align: center; color: var(--muted); }

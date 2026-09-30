@@ -18,6 +18,8 @@ export interface MenuItem {
   description: string;
   /** PKR amount, or null while the price has not been provided. */
   price: number | null;
+  /** Optional label shown next to the price, e.g. "full plate". */
+  priceNote?: string;
   /** Optional image URL/path. When empty or failing to load, built-in artwork is shown. */
   image?: string;
   /** Set to false to show the item as "Unavailable" and block ordering. Defaults to true. */
@@ -43,7 +45,8 @@ export const menuItems: MenuItem[] = [
     category: "chicken",
     description:
       "Fragrant basmati rice cooked with tender chicken and authentic biryani spices.",
-    price: null,
+    price: 400,
+    priceNote: "full plate",
     featured: true,
   },
   {
@@ -52,7 +55,8 @@ export const menuItems: MenuItem[] = [
     category: "beef",
     description:
       "Rich and flavorful biryani prepared with tender beef and aromatic spices.",
-    price: null,
+    price: 400,
+    priceNote: "full plate",
     featured: true,
   },
   {
@@ -61,7 +65,8 @@ export const menuItems: MenuItem[] = [
     category: "mutton",
     description:
       "Traditional-style mutton biryani with fragrant rice and carefully balanced spices.",
-    price: null,
+    price: 400,
+    priceNote: "full plate",
     featured: true,
   },
   {
@@ -70,7 +75,8 @@ export const menuItems: MenuItem[] = [
     category: "special",
     description:
       "Our special biryani selection prepared with a rich blend of aromatic spices.",
-    price: null,
+    price: 400,
+    priceNote: "full plate",
     featured: true,
   },
   {

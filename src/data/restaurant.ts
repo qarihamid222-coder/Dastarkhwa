@@ -24,13 +24,13 @@ export const restaurant = {
   tagline: "Authentic Karachi Biryani, Made With Love",
   shortDescription:
     "Delicious, aromatic and flavorful biryani made with authentic Pakistani taste.",
-  address: PLACEHOLDER.address,
-  phone: PLACEHOLDER.phone,
+  address: "Chitral City",
+  phone: "0323 7185867",
   /** Digits only, with country code, e.g. "923001234567". Used to build wa.me links. */
   whatsappNumber: (env.VITE_WHATSAPP_NUMBER as string | undefined)?.replace(/\D/g, "") ?? "",
   whatsappDisplay: PLACEHOLDER.whatsapp,
   email: PLACEHOLDER.email,
-  openingHours: [PLACEHOLDER.hours],
+  openingHours: ["Open 24 hours"],
   mapEmbedUrl: (env.VITE_MAP_EMBED_URL as string | undefined) ?? "",
   socialLinks: [
     { label: "Facebook", url: "" },

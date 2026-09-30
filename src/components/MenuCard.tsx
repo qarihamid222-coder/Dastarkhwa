@@ -28,6 +28,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
           <p className={`price${item.price === null ? " price--missing" : ""}`}>
             <span className="visually-hidden">Price: </span>
             {formatPrice(item.price)}
+            {item.priceNote && item.price !== null && <span className="price__note"> / {item.priceNote}</span>}
           </p>
           {available ? (
             <Button size="md" onClick={order} aria-label={`Order ${item.name}`}>
