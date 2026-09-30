@@ -28,12 +28,19 @@ export interface MenuItem {
   /** Optional label shown next to the price, e.g. "full plate". */
   priceNote?: string;
   priceNoteUr?: string;
-  /** Optional image URL/path. When empty or failing to load, built-in artwork is shown. */
+  /** Optional photo, e.g. `image: menuImage("chicken-biryani.jpg")`. When empty or failing to load, built-in artwork is shown. */
   image?: string;
   /** Set to false to show the item as "Unavailable" and block ordering. Defaults to true. */
   available?: boolean;
   featured?: boolean;
 }
+
+/**
+ * Photo folder: put real photos in `public/images/menu/` (e.g. `chicken-biryani.jpg`, about 1200×900,
+ * JPG/WebP) and reference them with `menuImage("chicken-biryani.jpg")` in the item's `image` field.
+ * Until an item has an `image`, the built-in illustration is shown (also if a photo fails to load).
+ */
+export const menuImage = (file: string) => `/images/menu/${file}`;
 
 export const menuCategories: MenuCategory[] = [
   { id: "chicken", labelKey: "cat.chicken", art: "biryani" },

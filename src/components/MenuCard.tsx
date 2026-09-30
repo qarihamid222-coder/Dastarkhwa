@@ -22,7 +22,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
 
   return (
     <article className={`card${available ? "" : " card--off"}`}>
-      <FoodImage src={item.image} alt={t("menu.imageAlt", { name: text.name })} variant={category?.art ?? "biryani"} />
+      <FoodImage src={item.image} alt={item.image ? text.name : t("menu.imageAlt", { name: text.name })} variant={category?.art ?? "biryani"} />
       <div className="card__body">
         {category && <p className="card__cat">{t(category.labelKey)}</p>}
         <h3 className="card__title">{text.name}</h3>

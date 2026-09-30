@@ -24,7 +24,10 @@ When hosting `dist/`, configure the host to serve `index.html` for unknown paths
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. To use real food photos, set `image` on a menu item (missing or broken images fall back to built-in artwork).
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
+### Replacing the illustrations with real photos
+
+The site currently uses built-in food illustrations. To switch an item to a real photo: copy the image into `public/images/menu/` (about 1200×900, JPG or WebP) and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo is missing or fails to load, the illustration is shown instead.
 
 ## Urdu (RTL) and Nastaliq fonts
 
