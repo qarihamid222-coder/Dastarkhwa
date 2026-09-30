@@ -37,7 +37,6 @@ export function MenuBrowser() {
           ))}
         </div>
       )}
-      <p className="menu-note">{t("menu.note")}</p>
     </div>
   );
 }

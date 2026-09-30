@@ -24,7 +24,7 @@ When hosting `dist/`, configure the host to serve `index.html` for unknown paths
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items without a price are `null` and display as "Add Price"; set a number (PKR) to enable order totals. To use real food photos, set `image` on a menu item (missing or broken images fall back to built-in artwork).
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. To use real food photos, set `image` on a menu item (missing or broken images fall back to built-in artwork).
 
 ## Urdu (RTL) and Nastaliq fonts
 
@@ -45,6 +45,8 @@ Copy `.env.example` to `.env` and set (all values are public because they are bu
 - `VITE_CONTACT_ENDPOINT` — POST contact messages as JSON to a form service/backend.
 - `VITE_MAP_EMBED_URL` — Google Maps embed URL for the Find Us page.
 
-Orders are sent through WhatsApp ("Send order on WhatsApp") and the contact form offers email / WhatsApp buttons until `VITE_CONTACT_ENDPOINT` is set. Order and contact delivery lives in `src/lib/orderService.ts`, so a payment provider or another channel can be added there without touching the UI. No payment gateway is included.
+Orders are sent through WhatsApp ("Send Order on WhatsApp"); the message contains the full order summary (items, quantities, prices, total, delivery/pickup, address, name, phone, instructions). Until `VITE_CONTACT_ENDPOINT` is set, the contact form does **not** claim to receive messages: it validates the input and then offers "email" and "WhatsApp" buttons that open the visitor's own app with the message prefilled.
+
+To connect a backend/form service later, set `VITE_CONTACT_ENDPOINT` to an HTTPS URL that accepts a JSON `POST` of `{ name, phone, email, message }` and returns a 2xx status; the form then shows real success/error messages automatically. Orders can be forwarded the same way with `VITE_ORDER_ENDPOINT` (JSON `{ name, phone, fulfilment, address, notes, lines, text }`). Order and contact delivery lives in `src/lib/orderService.ts`, so a payment provider or another channel can be added there without touching the UI. No payment gateway is included.
 
 Never put secret keys in `VITE_` variables or in the repository.

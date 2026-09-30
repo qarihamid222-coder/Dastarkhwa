@@ -1,7 +1,8 @@
 /**
  * Central menu data. EDIT THIS FILE to change items, prices, images, categories and availability.
- * Item names/descriptions are sample content (English + Urdu). Only the biryani "full plate"
- * price has been provided so far; other prices stay `null` (shown as "Add Price") until known.
+ * Names and descriptions are in English + Urdu. Only the biryani "full plate" price has been
+ * provided so far; items with `price: null` show "Price on request" and are confirmed by the
+ * restaurant. Set a number (PKR) to show a price and include it in order totals.
  */
 import type { TranslationKey } from "../i18n/translations";
 import type { Lang } from "../i18n/translations";

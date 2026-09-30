@@ -87,7 +87,7 @@ export function ContactForm() {
       <TextField id="contact-email" label={t("contact.email")} type="email" dir="ltr" value={values.email} onChange={set("email")} error={err("email")} autoComplete="email" maxLength={120} hint={t("contact.hint")} />
       <TextArea id="contact-message" label={t("contact.message")} rows={5} value={values.message} onChange={set("message")} error={err("message")} maxLength={1000} />
       <Button type="submit" size="lg" disabled={status === "sending"}>
-        {status === "sending" ? t("contact.sending") : t("contact.send")}
+        {status === "sending" ? t("contact.sending") : restaurant.endpoints.contact ? t("contact.send") : t("contact.sendVia")}
       </Button>
     </form>
   );

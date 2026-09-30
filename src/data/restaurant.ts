@@ -32,6 +32,7 @@ export const restaurant = {
   mapSearchUrl:
     "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Karachi Biryani Center, Chitral City"),
   mapEmbedUrl: (env.VITE_MAP_EMBED_URL as string | undefined) ?? "",
+  /** Add the real page URL to show an account in the footer; entries with an empty url are hidden. */
   socialLinks: [
     { label: "Facebook", url: "" },
     { label: "Instagram", url: "" },

@@ -7,30 +7,28 @@ import { UrduFontPicker } from "./LanguageSwitcher";
 
 export function Footer() {
   const { t } = useI18n();
+  /** Only accounts with a real URL are shown; nothing is displayed for unset ones. */
+  const socials = restaurant.socialLinks.filter((s) => isConfigured(s.url));
   return (
     <footer className="footer">
       <div className="container footer__grid">
         <div>
           <Logo light />
           <p className="footer__about">{t("hero.lead")}</p>
-          <div className="footer__social">
-            <h2 className="footer__heading">{t("footer.followUs")}</h2>
-            <ul className="social">
-              {restaurant.socialLinks.map((s) => (
-                <li key={s.label}>
-                  {isConfigured(s.url) ? (
+          {socials.length > 0 && (
+            <div className="footer__social">
+              <h2 className="footer__heading">{t("footer.followUs")}</h2>
+              <ul className="social">
+                {socials.map((s) => (
+                  <li key={s.label}>
                     <a href={s.url} target="_blank" rel="noopener noreferrer">
                       {s.label}
                     </a>
-                  ) : (
-                    <span className="placeholder">
-                      {s.label} {t("footer.soon")}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <UrduFontPicker id="font-picker-footer" />
         </div>
         <nav aria-label={t("nav.footer")}>

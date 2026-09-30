@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { isAvailable, itemText, menuCategories, menuItems } from "../data/menu";
@@ -12,7 +12,7 @@ import { Button } from "./Button";
 import { telHref } from "./ContactButtons";
 import { TextArea, TextField } from "./FormField";
 import { OrderSummary } from "./OrderSummary";
-import { IconPlus } from "./Icons";
+import { IconChat, IconPlus } from "./Icons";
 
 type Fulfilment = "delivery" | "pickup";
 
@@ -29,6 +29,14 @@ export function OrderForm() {
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<OrderResult | null>(null);
   const [copied, setCopied] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (result && result.status !== "error") {
+      resultRef.current?.scrollIntoView({ block: "start" });
+      resultRef.current?.querySelector("h2")?.focus({ preventScroll: true });
+    }
+  }, [result]);
 
   const available = menuItems.filter(isAvailable);
 
@@ -66,21 +74,23 @@ export function OrderForm() {
 
   if (result && result.status !== "error") {
     return (
-      <div className="notice notice--ok" role="status">
-        <h2>{result.status === "sent" ? t("order.doneTitle") : t("order.readyTitle")}</h2>
+      <div className="notice notice--ok" role="status" ref={resultRef}>
+        <h2 tabIndex={-1}>{result.status === "sent" ? t("order.doneTitle") : t("order.readyTitle")}</h2>
         {result.status === "sent" && <p>{t("order.doneText")}</p>}
         {result.status === "whatsapp" && (
           <>
             <p>{t("order.waText")}</p>
-            <a className="btn btn--primary btn--lg" href={result.url} target="_blank" rel="noopener noreferrer">
-              {t("order.waButton")}
+            <a className="btn btn--whatsapp btn--lg btn--block" href={result.url} target="_blank" rel="noopener noreferrer">
+              <IconChat /> {t("order.waButton")}
             </a>
+            <h3 className="order-text__title">{t("order.preview")}</h3>
+            <pre className="order-text" dir="ltr">{result.text}</pre>
           </>
         )}
         {result.status === "not-configured" && (
           <>
             <p>{t("order.manualText")}</p>
-            <pre className="order-text">{result.text}</pre>
+            <pre className="order-text" dir="ltr">{result.text}</pre>
             <Button variant="secondary" onClick={() => copy(result.text)}>
               {copied ? t("order.copied") : t("order.copy")}
             </Button>

@@ -191,8 +191,7 @@ main:focus { outline: none; }
 .price__note { font-weight: 500; font-size: .82rem; color: var(--muted); }
 .price--missing { color: var(--maroon); font-size: .9rem; }
 .badge { padding: .35rem .8rem; border-radius: 999px; background: var(--cream-200); color: var(--muted); font-weight: 600; font-size: .82rem; }
-.empty, .menu-note { text-align: center; color: var(--muted); }
-.menu-note { font-size: .85rem; margin-top: 2rem; }
+.empty { text-align: center; color: var(--muted); }
 
 /* ===== Features ===== */
 .features { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
@@ -274,6 +273,7 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .notice--error { background: #fdeeee; border-color: #efb3b8; color: #6d1219; }
 .notice--info { background: #fff6dd; border-color: #ecd28c; color: #58430a; }
 .notice__actions { margin: 1rem 0 0; }
+.order-text__title { font-size: 1.05rem; margin: 1.25rem 0 0; }
 .order-text { white-space: pre-wrap; word-break: break-word; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 1rem; font: .9rem/1.5 ui-monospace, Menlo, Consolas, monospace; margin: 1rem 0; }
 
 /* ===== Footer ===== */
@@ -334,6 +334,9 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .map__placeholder .btn { margin-top: .5rem; }
 
 /* ===== Urdu (RTL) & Nastaliq typography ===== */
+/* Use Mehr / Noori Nastaliq when installed on the visitor's device (under any common installed name). */
+@font-face { font-family: "Mehr Nastaliq Web"; src: local("Mehr Nastaliq Web"), local("MehrNastaliqWeb"), local("Mehr Nastaliq"), local("Mehr Nastaleeq"); }
+@font-face { font-family: "Noori Nastaleeq"; src: local("Noori Nastaleeq"), local("NooriNastaleeq"), local("Noori Nastaliq"), local("Jameel Noori Nastaleeq"), local("JameelNooriNastaleeq"); }
 /* Font stacks: requested font first, then the closest Nastaliq alternatives. */
 :root { --font-ur: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Mehr Nastaliq Web", "Urdu Typesetting", serif; }
 :root[data-urdu-font="mehr"] { --font-ur: "Mehr Nastaliq Web", "Mehr Nastaliq", "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Urdu Typesetting", serif; }

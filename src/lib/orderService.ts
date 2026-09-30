@@ -38,23 +38,36 @@ const rs = (n: number) => `Rs. ${n.toLocaleString("en-PK")}`;
 /** English total used in the order message sent to the restaurant (staff-facing). */
 export function totalLabel(total: OrderTotal): string {
   if (total.incomplete) {
-    return total.amount > 0 ? `${rs(total.amount)} + items awaiting price` : "To be confirmed";
+    return total.amount > 0 ? `${rs(total.amount)} + price to be confirmed for remaining items` : "To be confirmed";
   }
   return rs(total.amount);
 }
 
-/** Plain-text order, used for WhatsApp, clipboard and any future channel. */
+/** Plain-text order, used for WhatsApp, clipboard and any future channel. Includes the full summary. */
 export function buildOrderText(o: OrderPayload): string {
   const total = totalLabel(calculateTotal(o.lines));
-  const lines = o.lines.map((l) => `• ${l.quantity} × ${l.name}`).join("\n");
+  const lines = o.lines.map((l) =>
+    l.price === null
+      ? `• ${l.quantity} × ${l.name} — price to be confirmed`
+      : `• ${l.quantity} × ${l.name} — ${rs(l.price)} each = ${rs(l.price * l.quantity)}`,
+  );
   const details = [
-    `Type: ${o.fulfilment === "delivery" ? "Delivery" : "Pickup"}`,
-    o.fulfilment === "delivery" ? `Address: ${o.address.trim()}` : "",
+    `Order type: ${o.fulfilment === "delivery" ? "Delivery" : "Pickup"}`,
+    o.fulfilment === "delivery" ? `Delivery address: ${o.address.trim()}` : "",
     `Name: ${o.name.trim()}`,
     `Phone: ${o.phone.trim()}`,
-    o.notes.trim() ? `Instructions: ${o.notes.trim()}` : "",
+    o.notes.trim() ? `Special instructions: ${o.notes.trim()}` : "",
   ].filter(Boolean);
-  return [`New order — ${restaurant.name}`, "", lines, "", `Total: ${total}`, ...details].join("\n");
+  return [
+    `New order — ${restaurant.name}`,
+    "",
+    "ORDER SUMMARY",
+    ...lines,
+    "",
+    `Total: ${total}`,
+    "",
+    ...details,
+  ].join("\n");
 }
 
 export const whatsappLink = (text: string): string | null =>
