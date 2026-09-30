@@ -33,9 +33,10 @@ export function ButtonLink({
   size = "md",
   className,
   children,
-}: Common & { to: string }) {
+  ariaLabel,
+}: Common & { to: string; ariaLabel?: string }) {
   return (
-    <Link to={to} className={cls(variant, size, className)}>
+    <Link to={to} className={cls(variant, size, className)} aria-label={ariaLabel}>
       {children}
     </Link>
   );

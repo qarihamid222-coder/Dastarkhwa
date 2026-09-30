@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { menuItems } from "../data/menu";
-import { restaurant } from "../data/restaurant";
+import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { ButtonLink } from "../components/Button";
+import { ContactButtons } from "../components/ContactButtons";
+import { ContactDetails } from "../components/ContactDetails";
 import { FoodArt } from "../components/FoodArt";
 import { MenuCard } from "../components/MenuCard";
 import { Section } from "../components/Section";
 import { WhyChooseUs } from "../components/WhyChooseUs";
-import { ContactDetails } from "../components/ContactDetails";
 
 export default function Home() {
   usePageMeta();
+  const { t } = useI18n();
   const featured = menuItems.filter((i) => i.featured).slice(0, 6);
 
   return (
@@ -18,19 +20,21 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero__grid">
           <div className="hero__copy">
-            <p className="hero__brand">{restaurant.name}</p>
-            <h1 id="hero-title">Authentic Karachi Biryani, Made With Love</h1>
-            <p className="hero__lead">{restaurant.shortDescription}</p>
+            <p className="hero__brand">
+              {t("brand.name")} · {t("brand.place")}
+            </p>
+            <h1 id="hero-title">{t("hero.title")}</h1>
+            <p className="hero__lead">{t("hero.lead")}</p>
             <div className="hero__cta">
               <ButtonLink to="/order" size="lg">
-                ORDER NOW
+                {t("hero.order")}
               </ButtonLink>
               <ButtonLink to="/menu" variant="light" size="lg">
-                VIEW MENU
+                {t("hero.menu")}
               </ButtonLink>
             </div>
           </div>
-          <div className="hero__art" role="img" aria-label="Illustration of a bowl of fragrant biryani with steam rising">
+          <div className="hero__art" role="img" aria-label={t("hero.art")}>
             <div className="hero__plate">
               <FoodArt variant="biryani" bare />
             </div>
@@ -38,19 +42,11 @@ export default function Home() {
         </div>
       </section>
 
-      <Section id="welcome" eyebrow="Welcome" title="A taste inspired by Karachi" tone="white">
-        <p className="lead-text">
-          Welcome to Karachi Biryani Center — serving delicious, aromatic and flavorful biryani inspired by the
-          authentic taste of Karachi.
-        </p>
+      <Section id="welcome" eyebrow={t("home.welcomeEyebrow")} title={t("home.welcomeTitle")} tone="white">
+        <p className="lead-text">{t("home.welcomeText")}</p>
       </Section>
 
-      <Section
-        id="featured"
-        eyebrow="From our menu"
-        title="Our biryani selection"
-        intro="A taste of what we serve. Explore the full menu for drinks, sides and family deals."
-      >
+      <Section id="featured" eyebrow={t("home.featuredEyebrow")} title={t("home.featuredTitle")} intro={t("home.featuredIntro")}>
         <div className="grid-cards">
           {featured.map((item) => (
             <MenuCard key={item.id} item={item} />
@@ -58,39 +54,37 @@ export default function Home() {
         </div>
         <p className="center">
           <ButtonLink to="/menu" variant="secondary">
-            See the full menu
+            {t("home.seeMenu")}
           </ButtonLink>
         </p>
       </Section>
 
-      <Section id="why" eyebrow="Why choose us" title="Made with care, served with respect" tone="white">
+      <Section id="why" eyebrow={t("home.whyEyebrow")} title={t("home.whyTitle")} tone="white">
         <WhyChooseUs />
       </Section>
 
-      <Section id="about-teaser" eyebrow="About us" title={restaurant.name} tone="cream">
-        <p className="lead-text">
-          Karachi Biryani Center is dedicated to serving flavorful biryani and delicious Pakistani food with a focus
-          on taste, freshness and quality.
-        </p>
+      <Section id="about-teaser" eyebrow={t("home.aboutEyebrow")} title={t("about.heading")} tone="cream">
+        <p className="lead-text">{t("about.p1")}</p>
         <p className="center">
           <Link className="text-link" to="/about">
-            Read more about us →
+            {t("home.readMore")}
           </Link>
         </p>
       </Section>
 
-      <Section id="find-us" eyebrow="Find us" title="Visit or get in touch" tone="white">
+      <Section id="find-us" eyebrow={t("home.findEyebrow")} title={t("home.findTitle")} tone="white">
         <div className="split">
           <ContactDetails />
           <div className="cta-card">
-            <h3>Ready to order?</h3>
-            <p>Choose your favourites and place your order in a few taps.</p>
+            <h3>{t("home.ctaTitle")}</h3>
+            <p>{t("home.ctaText")}</p>
             <ButtonLink to="/order" size="lg">
-              Order Now
+              {t("nav.order")}
             </ButtonLink>
+            <ContactButtons className="contact-buttons--stack" />
             <p className="cta-card__link">
               <Link className="text-link" to="/location">
-                Location &amp; opening hours →
+                {t("home.locationLink")}
               </Link>
             </p>
           </div>

@@ -1,17 +1,20 @@
 import { Link } from "react-router-dom";
 import { isConfigured, navLinks, restaurant } from "../data/restaurant";
+import { useI18n } from "../i18n/LanguageContext";
 import { Logo } from "./Logo";
 import { ContactDetails } from "./ContactDetails";
+import { UrduFontPicker } from "./LanguageSwitcher";
 
 export function Footer() {
+  const { t } = useI18n();
   return (
     <footer className="footer">
       <div className="container footer__grid">
         <div>
           <Logo light />
-          <p className="footer__about">{restaurant.shortDescription}</p>
+          <p className="footer__about">{t("hero.lead")}</p>
           <div className="footer__social">
-            <h2 className="footer__heading">Follow us</h2>
+            <h2 className="footer__heading">{t("footer.followUs")}</h2>
             <ul className="social">
               {restaurant.socialLinks.map((s) => (
                 <li key={s.label}>
@@ -20,38 +23,37 @@ export function Footer() {
                       {s.label}
                     </a>
                   ) : (
-                    <span className="placeholder" title="Add the account URL in src/data/restaurant.ts">
-                      {s.label} (coming soon)
+                    <span className="placeholder">
+                      {s.label} {t("footer.soon")}
                     </span>
                   )}
                 </li>
               ))}
             </ul>
           </div>
+          <UrduFontPicker id="font-picker-footer" />
         </div>
-        <nav aria-label="Footer navigation">
-          <h2 className="footer__heading">Quick links</h2>
+        <nav aria-label={t("nav.footer")}>
+          <h2 className="footer__heading">{t("footer.quickLinks")}</h2>
           <ul className="footer__links">
             {navLinks.map((l) => (
               <li key={l.to}>
-                <Link to={l.to}>{l.label}</Link>
+                <Link to={l.to}>{t(l.key)}</Link>
               </li>
             ))}
             <li>
-              <Link to="/order">Order Now</Link>
+              <Link to="/order">{t("nav.order")}</Link>
             </li>
           </ul>
         </nav>
         <div>
-          <h2 className="footer__heading">Visit &amp; contact</h2>
-          <ContactDetails compact />
+          <h2 className="footer__heading">{t("footer.visit")}</h2>
+          <ContactDetails />
         </div>
       </div>
       <div className="footer__bottom">
         <div className="container">
-          <p>
-            © {new Date().getFullYear()} {restaurant.name}. All rights reserved.
-          </p>
+          <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
         </div>
       </div>
     </footer>

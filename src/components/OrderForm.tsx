@@ -1,13 +1,15 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { isAvailable, menuCategories, menuItems } from "../data/menu";
+import { isAvailable, itemText, menuCategories, menuItems } from "../data/menu";
 import { useCart } from "../context/CartContext";
+import { useI18n } from "../i18n/LanguageContext";
 import { submitOrder } from "../lib/orderService";
 import type { OrderResult } from "../lib/orderService";
 import { validateOrder } from "../lib/validation";
 import type { Errors, OrderField } from "../lib/validation";
 import { Button } from "./Button";
+import { telHref } from "./ContactButtons";
 import { TextArea, TextField } from "./FormField";
 import { OrderSummary } from "./OrderSummary";
 import { IconPlus } from "./Icons";
@@ -16,6 +18,7 @@ type Fulfilment = "delivery" | "pickup";
 
 export function OrderForm() {
   const { lines, add, clear } = useCart();
+  const { lang, t } = useI18n();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [fulfilment, setFulfilment] = useState<Fulfilment>("pickup");
@@ -64,25 +67,22 @@ export function OrderForm() {
   if (result && result.status !== "error") {
     return (
       <div className="notice notice--ok" role="status">
-        <h2>{result.status === "sent" ? "Order received" : "Your order is ready to send"}</h2>
-        {result.status === "sent" && <p>Thank you! We have received your order and will contact you shortly.</p>}
+        <h2>{result.status === "sent" ? t("order.doneTitle") : t("order.readyTitle")}</h2>
+        {result.status === "sent" && <p>{t("order.doneText")}</p>}
         {result.status === "whatsapp" && (
           <>
-            <p>Tap the button below to send your order to us on WhatsApp.</p>
+            <p>{t("order.waText")}</p>
             <a className="btn btn--primary btn--lg" href={result.url} target="_blank" rel="noopener noreferrer">
-              Send order on WhatsApp
+              {t("order.waButton")}
             </a>
           </>
         )}
         {result.status === "not-configured" && (
           <>
-            <p>
-              Online order sending has not been connected yet. Your order details are shown below — copy them and
-              share them with the restaurant, or call the restaurant to place the order.
-            </p>
+            <p>{t("order.manualText")}</p>
             <pre className="order-text">{result.text}</pre>
             <Button variant="secondary" onClick={() => copy(result.text)}>
-              {copied ? "Copied!" : "Copy order details"}
+              {copied ? t("order.copied") : t("order.copy")}
             </Button>
           </>
         )}
@@ -95,7 +95,7 @@ export function OrderForm() {
               setNotes("");
             }}
           >
-            Start a new order
+            {t("order.new")}
           </Button>
         </p>
       </div>
@@ -107,24 +107,24 @@ export function OrderForm() {
       <div className="order-grid__form">
         {result?.status === "error" && (
           <div className="notice notice--error" role="alert">
-            {result.message}
+            {t("order.sendError")}
           </div>
         )}
 
         <fieldset className="fieldset">
-          <legend>1. Choose your items</legend>
+          <legend>{t("order.step1")}</legend>
           <div className="add-item">
             <div className="field">
-              <label htmlFor="add-item">Add a menu item</label>
+              <label htmlFor="add-item">{t("order.addLabel")}</label>
               <select id="add-item" value={pick} onChange={(e) => setPick(e.target.value)}>
-                <option value="">Select an item…</option>
+                <option value="">{t("order.select")}</option>
                 {menuCategories.map((c) => {
                   const inCat = available.filter((i) => i.category === c.id);
                   return inCat.length ? (
-                    <optgroup key={c.id} label={c.label}>
+                    <optgroup key={c.id} label={t(c.labelKey)}>
                       {inCat.map((i) => (
                         <option key={i.id} value={i.id}>
-                          {i.name}
+                          {itemText(i, lang).name}
                         </option>
                       ))}
                     </optgroup>
@@ -133,22 +133,22 @@ export function OrderForm() {
               </select>
             </div>
             <Button type="button" variant="secondary" onClick={onAdd} disabled={!pick}>
-              <IconPlus /> Add
+              <IconPlus /> {t("order.add")}
             </Button>
           </div>
           {errors.items && (
             <p className="field__error" role="alert">
-              {errors.items}
+              {t(errors.items)}
             </p>
           )}
           <p className="fieldset__hint">
-            Browse the full <Link to="/menu">menu</Link>. Drinks, sides and extras can be added from the list above.
+            <Link to="/menu">{t("order.browse")}</Link> {t("order.hint")}
           </p>
         </fieldset>
 
         <fieldset className="fieldset">
-          <legend>2. Delivery or pickup</legend>
-          <div className="segmented" role="radiogroup" aria-label="Delivery or pickup">
+          <legend>{t("order.step2")}</legend>
+          <div className="segmented" role="radiogroup" aria-label={t("order.fulfilment")}>
             {(["pickup", "delivery"] as const).map((v) => (
               <label key={v} className={`segmented__opt${fulfilment === v ? " is-on" : ""}`}>
                 <input
@@ -158,18 +158,18 @@ export function OrderForm() {
                   checked={fulfilment === v}
                   onChange={() => setFulfilment(v)}
                 />
-                {v === "pickup" ? "Pickup" : "Delivery"}
+                {v === "pickup" ? t("order.pickup") : t("order.delivery")}
               </label>
             ))}
           </div>
           {fulfilment === "delivery" && (
             <TextArea
               id="order-address"
-              label="Delivery address"
+              label={t("order.address")}
               rows={3}
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              error={errors.address}
+              error={errors.address && t(errors.address)}
               autoComplete="street-address"
               maxLength={300}
             />
@@ -177,32 +177,33 @@ export function OrderForm() {
         </fieldset>
 
         <fieldset className="fieldset">
-          <legend>3. Your details</legend>
+          <legend>{t("order.step3")}</legend>
           <div className="grid-2">
             <TextField
               id="order-name"
-              label="Full name"
+              label={t("order.name")}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              error={errors.name}
+              error={errors.name && t(errors.name)}
               autoComplete="name"
               maxLength={80}
             />
             <TextField
               id="order-phone"
-              label="Phone number"
+              label={t("order.phone")}
               type="tel"
               inputMode="tel"
+              dir="ltr"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              error={errors.phone}
+              error={errors.phone && t(errors.phone)}
               autoComplete="tel"
               maxLength={20}
             />
           </div>
           <TextArea
             id="order-notes"
-            label="Special instructions"
+            label={t("order.notes")}
             optional
             rows={3}
             value={notes}
@@ -215,11 +216,12 @@ export function OrderForm() {
       <aside className="order-grid__summary" aria-label="Order summary">
         <OrderSummary lines={lines} />
         <Button type="submit" size="lg" className="btn--block" disabled={busy}>
-          {busy ? "Sending…" : "Place order"}
+          {busy ? t("order.sending") : t("order.place")}
         </Button>
-        <p className="summary__note">
-          No online payment is taken on this website. Payment is arranged with the restaurant.
-        </p>
+        <p className="summary__note">{t("order.paymentNote")}</p>
+        <a className="btn btn--secondary btn--block" href={telHref}>
+          {t("action.call")}
+        </a>
       </aside>
     </form>
   );

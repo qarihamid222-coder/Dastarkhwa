@@ -1,21 +1,24 @@
 import type { ReactNode } from "react";
-import { IconFlame, IconHeart, IconLeaf, IconCheck } from "./Icons";
+import type { TranslationKey } from "../i18n/translations";
+import { useI18n } from "../i18n/LanguageContext";
+import { IconCheck, IconFlame, IconHeart, IconLeaf } from "./Icons";
 
-const reasons: { icon: ReactNode; title: string; text: string }[] = [
-  { icon: <IconCheck />, title: "Authentic Taste", text: "Biryani inspired by the traditional flavours of Karachi." },
-  { icon: <IconLeaf />, title: "Fresh Ingredients", text: "A focus on fresh ingredients and careful preparation." },
-  { icon: <IconFlame />, title: "Flavorful Biryani", text: "Aromatic rice and a balanced blend of spices in every serving." },
-  { icon: <IconHeart />, title: "Quality Service", text: "Friendly, respectful service for every guest." },
+const reasons: { icon: ReactNode; title: TranslationKey; text: TranslationKey }[] = [
+  { icon: <IconCheck />, title: "why.taste", text: "why.tasteText" },
+  { icon: <IconLeaf />, title: "why.fresh", text: "why.freshText" },
+  { icon: <IconFlame />, title: "why.flavor", text: "why.flavorText" },
+  { icon: <IconHeart />, title: "why.service", text: "why.serviceText" },
 ];
 
 export function WhyChooseUs() {
+  const { t } = useI18n();
   return (
     <ul className="features">
       {reasons.map((r) => (
         <li key={r.title} className="feature">
           <span className="feature__icon">{r.icon}</span>
-          <h3>{r.title}</h3>
-          <p>{r.text}</p>
+          <h3>{t(r.title)}</h3>
+          <p>{t(r.text)}</p>
         </li>
       ))}
     </ul>

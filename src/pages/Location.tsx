@@ -1,23 +1,29 @@
-import { isConfigured, restaurant } from "../data/restaurant";
+import { restaurant } from "../data/restaurant";
+import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { PageHero } from "../components/PageHero";
 import { Section } from "../components/Section";
+import { ContactButtons } from "../components/ContactButtons";
 import { ContactDetails } from "../components/ContactDetails";
 import { IconPin } from "../components/Icons";
 
 export default function Location() {
-  usePageMeta("Find Us", "Find Karachi Biryani Center: address, phone, WhatsApp and opening hours.");
+  usePageMeta("seo.locationTitle", "seo.locationDesc");
+  const { t } = useI18n();
   const hasMap = restaurant.mapEmbedUrl.startsWith("https://www.google.com/maps/embed");
   return (
     <>
-      <PageHero title="Find Us" intro="Visit the restaurant or get in touch." />
+      <PageHero title={t("loc.title")} intro={t("loc.intro")} />
       <Section tone="white">
         <div className="split">
-          <ContactDetails />
+          <div>
+            <ContactDetails />
+            <ContactButtons className="contact-buttons--stack contact-buttons--spaced" />
+          </div>
           <div className="map">
             {hasMap ? (
               <iframe
-                title={`Map showing the location of ${restaurant.name}`}
+                title={t("loc.mapTitle")}
                 src={restaurant.mapEmbedUrl}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -26,10 +32,10 @@ export default function Location() {
             ) : (
               <div className="map__placeholder">
                 <IconPin />
-                <p>
-                  Map will appear here once the restaurant address is added.
-                  {isConfigured(restaurant.address) ? "" : " Set VITE_MAP_EMBED_URL to connect Google Maps."}
-                </p>
+                <p>{t("loc.mapText")}</p>
+                <a className="btn btn--secondary" href={restaurant.mapSearchUrl} target="_blank" rel="noopener noreferrer">
+                  {t("loc.openMaps")}
+                </a>
               </div>
             )}
           </div>

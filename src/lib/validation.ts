@@ -1,4 +1,7 @@
-export type Errors<T extends string> = Partial<Record<T, string>>;
+import type { TranslationKey } from "../i18n/translations";
+
+/** Validation returns translation keys; components translate them for the current language. */
+export type Errors<T extends string> = Partial<Record<T, TranslationKey>>;
 
 const PHONE_RE = /^\+?[0-9\s-]{10,16}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -19,13 +22,11 @@ export interface ContactValues {
 
 export function validateContact(v: ContactValues): Errors<ContactField> {
   const e: Errors<ContactField> = {};
-  if (v.name.trim().length < 2) e.name = "Please enter your name.";
-  if (!v.phone.trim() && !v.email.trim())
-    e.phone = "Please provide a phone number or an email address.";
-  if (v.phone.trim() && !isValidPhone(v.phone))
-    e.phone = "Enter a valid phone number (10–15 digits).";
-  if (v.email.trim() && !isValidEmail(v.email)) e.email = "Enter a valid email address.";
-  if (v.message.trim().length < 10) e.message = "Please write a message of at least 10 characters.";
+  if (v.name.trim().length < 2) e.name = "err.name";
+  if (!v.phone.trim() && !v.email.trim()) e.phone = "err.phoneOrEmail";
+  if (v.phone.trim() && !isValidPhone(v.phone)) e.phone = "err.phone";
+  if (v.email.trim() && !isValidEmail(v.email)) e.email = "err.email";
+  if (v.message.trim().length < 10) e.message = "err.message";
   return e;
 }
 
@@ -40,10 +41,9 @@ export interface OrderValues {
 
 export function validateOrder(v: OrderValues): Errors<OrderField> {
   const e: Errors<OrderField> = {};
-  if (v.name.trim().length < 2) e.name = "Please enter your name.";
-  if (!isValidPhone(v.phone)) e.phone = "Enter a valid phone number (10–15 digits).";
-  if (v.itemCount === 0) e.items = "Add at least one item to your order.";
-  if (v.fulfilment === "delivery" && v.address.trim().length < 8)
-    e.address = "Please enter your full delivery address.";
+  if (v.name.trim().length < 2) e.name = "err.name";
+  if (!isValidPhone(v.phone)) e.phone = "err.phone";
+  if (v.itemCount === 0) e.items = "err.items";
+  if (v.fulfilment === "delivery" && v.address.trim().length < 8) e.address = "err.address";
   return e;
 }

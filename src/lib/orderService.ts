@@ -1,5 +1,4 @@
 import { restaurant } from "../data/restaurant";
-import { formatPrice } from "./format";
 import type { ContactValues } from "./validation";
 
 export interface OrderLine {
@@ -34,13 +33,14 @@ export function calculateTotal(lines: OrderLine[]): OrderTotal {
   return { amount, incomplete };
 }
 
+const rs = (n: number) => `Rs. ${n.toLocaleString("en-PK")}`;
+
+/** English total used in the order message sent to the restaurant (staff-facing). */
 export function totalLabel(total: OrderTotal): string {
   if (total.incomplete) {
-    return total.amount > 0
-      ? `${formatPrice(total.amount)} + items awaiting price`
-      : "To be confirmed";
+    return total.amount > 0 ? `${rs(total.amount)} + items awaiting price` : "To be confirmed";
   }
-  return formatPrice(total.amount);
+  return rs(total.amount);
 }
 
 /** Plain-text order, used for WhatsApp, clipboard and any future channel. */
@@ -121,3 +121,21 @@ export async function submitContact(values: ContactValues): Promise<ContactResul
     };
   }
 }
+
+/** Plain-text contact message, used for the email / WhatsApp fallbacks. */
+export function buildContactText(v: ContactValues): string {
+  return [
+    `Message for ${restaurant.name}`,
+    "",
+    v.message.trim(),
+    "",
+    `Name: ${v.name.trim()}`,
+    v.phone.trim() ? `Phone: ${v.phone.trim()}` : "",
+    v.email.trim() ? `Email: ${v.email.trim()}` : "",
+  ]
+    .filter((row, i) => row !== "" || i < 3)
+    .join("\n");
+}
+
+export const mailtoLink = (subject: string, body: string) =>
+  `mailto:${restaurant.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;

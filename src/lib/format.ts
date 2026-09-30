@@ -1,4 +1,9 @@
-export const PRICE_PLACEHOLDER = "Add Price";
+import type { Lang, TranslationKey } from "../i18n/translations";
 
-export const formatPrice = (price: number | null): string =>
-  price === null ? PRICE_PLACEHOLDER : `Rs. ${price.toLocaleString("en-PK")}`;
+type T = (key: TranslationKey, vars?: Record<string, string | number>) => string;
+
+/** Localized price, e.g. "Rs. 400" / "400 روپے"; null prices show the "Add Price" label. */
+export const formatPrice = (price: number | null, t: T): string =>
+  price === null ? t("menu.addPrice") : t("menu.currency", { n: price.toLocaleString("en-PK") });
+
+export type { Lang };

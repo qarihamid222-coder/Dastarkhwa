@@ -1,17 +1,9 @@
 /**
  * Central restaurant configuration.
- * Every value marked PLACEHOLDER must be replaced with real information before launch.
+ * Edit the values here to update the whole site (English text and Urdu equivalents side by side).
  * Public values can also be supplied through environment variables (see .env.example).
  */
 const env = import.meta.env;
-
-export const PLACEHOLDER = {
-  address: "ADD RESTAURANT ADDRESS",
-  phone: "ADD PHONE NUMBER",
-  whatsapp: "ADD WHATSAPP NUMBER",
-  email: "ADD EMAIL ADDRESS",
-  hours: "ADD OPENING HOURS",
-} as const;
 
 export interface SocialLink {
   label: string;
@@ -25,12 +17,20 @@ export const restaurant = {
   shortDescription:
     "Delicious, aromatic and flavorful biryani made with authentic Pakistani taste.",
   address: "Chitral City",
-  phone: "0323 7185867",
-  /** Digits only, with country code, e.g. "923001234567". Used to build wa.me links. */
-  whatsappNumber: (env.VITE_WHATSAPP_NUMBER as string | undefined)?.replace(/\D/g, "") ?? "",
-  whatsappDisplay: PLACEHOLDER.whatsapp,
-  email: PLACEHOLDER.email,
+  addressUr: "چترال سٹی",
+  /** Shown to visitors exactly as provided. */
+  phone: "03237185867",
+  /** International format for tel: links. */
+  phoneIntl: "+923237185867",
+  /** Digits only, with country code (Pakistan +92). Used to build wa.me links. */
+  whatsappNumber: (env.VITE_WHATSAPP_NUMBER as string | undefined)?.replace(/\D/g, "") || "923237185867",
+  whatsappDisplay: "03237185867",
+  email: "hamidurahman15201@gmail.com",
   openingHours: ["Open 24 hours"],
+  openingHoursUr: ["24 گھنٹے کھلا"],
+  /** Search link (no exact pin is claimed) until a precise Google Maps location is provided. */
+  mapSearchUrl:
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Karachi Biryani Center, Chitral City"),
   mapEmbedUrl: (env.VITE_MAP_EMBED_URL as string | undefined) ?? "",
   socialLinks: [
     { label: "Facebook", url: "" },
@@ -48,9 +48,9 @@ export const isConfigured = (value: string) =>
   value.trim() !== "" && !value.startsWith("ADD ");
 
 export const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/menu", label: "Menu" },
-  { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
-  { to: "/location", label: "Location" },
+  { to: "/", key: "nav.home" },
+  { to: "/menu", key: "nav.menu" },
+  { to: "/about", key: "nav.about" },
+  { to: "/contact", key: "nav.contact" },
+  { to: "/location", key: "nav.location" },
 ] as const;

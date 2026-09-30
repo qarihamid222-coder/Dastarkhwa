@@ -1,4 +1,5 @@
 import type { InputHTMLAttributes, ReactNode, TextareaHTMLAttributes } from "react";
+import { useI18n } from "../i18n/LanguageContext";
 
 interface Base {
   id: string;
@@ -9,11 +10,12 @@ interface Base {
 }
 
 function Wrap({ id, label, error, hint, optional, children }: Base & { children: ReactNode }) {
+  const { t } = useI18n();
   return (
     <div className={`field${error ? " field--error" : ""}`}>
       <label htmlFor={id}>
         {label}
-        {optional && <span className="field__opt"> (optional)</span>}
+        {optional && <span className="field__opt"> {t("order.optional")}</span>}
       </label>
       {children}
       {hint && !error && (

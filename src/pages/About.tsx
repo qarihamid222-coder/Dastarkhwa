@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { ButtonLink } from "../components/Button";
 import { PageHero } from "../components/PageHero";
@@ -6,32 +7,27 @@ import { WhyChooseUs } from "../components/WhyChooseUs";
 import { FoodArt } from "../components/FoodArt";
 
 export default function About() {
-  usePageMeta("About Us", "Learn about Karachi Biryani Center — flavorful biryani and delicious Pakistani food with a focus on taste, freshness and quality.");
+  usePageMeta("seo.aboutTitle", "seo.aboutDesc");
+  const { t } = useI18n();
   return (
     <>
-      <PageHero title="About Us" intro="Flavorful biryani and delicious Pakistani food." />
+      <PageHero title={t("about.title")} intro={t("about.intro")} />
       <Section tone="white">
         <div className="split split--center">
           <div>
-            <h2>Karachi Biryani Center</h2>
-            <p>
-              Karachi Biryani Center is dedicated to serving flavorful biryani and delicious Pakistani food with a
-              focus on taste, freshness and quality.
-            </p>
-            <p>
-              Our biryani is inspired by the authentic taste of Karachi: fragrant basmati rice, tender meat and a rich
-              blend of aromatic spices, prepared with care.
-            </p>
+            <h2>{t("about.heading")}</h2>
+            <p>{t("about.p1")}</p>
+            <p>{t("about.p2")}</p>
             <ButtonLink to="/menu" variant="secondary">
-              Explore the menu
+              {t("about.explore")}
             </ButtonLink>
           </div>
-          <div className="about-art" role="img" aria-label="Illustration of a bowl of biryani">
+          <div className="about-art" role="img" aria-label={t("about.art")}>
             <FoodArt variant="biryani" />
           </div>
         </div>
       </Section>
-      <Section eyebrow="Why choose us" title="What we stand for" tone="cream">
+      <Section eyebrow={t("about.standEyebrow")} title={t("about.standTitle")} tone="cream">
         <WhyChooseUs />
       </Section>
     </>
