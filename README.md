@@ -12,7 +12,9 @@ npm run build      # type-check + production build (output in dist/)
 npm run preview    # serve the production build locally
 ```
 
-When hosting `dist/`, configure the host to serve `index.html` for unknown paths (SPA fallback) so routes like `/menu` work on refresh.
+## Going live
+
+`npm run build` creates the site in `dist/`. It is a static site, so it can be hosted on Netlify, Vercel, Cloudflare Pages or any static host. The repository already contains the "serve `index.html` for every path" rule that routes like `/menu` need on refresh: `public/_redirects` (Netlify, Cloudflare Pages) and `vercel.json` (Vercel). On other hosts, add the same fallback rule. Once a domain exists, connect it in the host's dashboard.
 
 ## Editing content
 
