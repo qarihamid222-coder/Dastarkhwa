@@ -13,9 +13,9 @@ export type UrduFont = "mehr" | "noori" | "noto";
  * Mehr and Noori Nastaliq are used when they are installed on the visitor's device.
  */
 export const URDU_FONTS: { id: UrduFont; label: string }[] = [
-  { id: "mehr", label: "Mehr Nastaliq" },
-  { id: "noori", label: "Noori Nastaliq" },
+  { id: "noori", label: "Jameel Noori Nastaleeq" },
   { id: "noto", label: "Noto Nastaliq Urdu" },
+  { id: "mehr", label: "Mehr Nastaliq" },
 ];
 
 type Vars = Record<string, string | number>;
@@ -55,7 +55,7 @@ const initialLang = (): Lang => {
 };
 const initialFont = (): UrduFont => {
   const saved = read(FONT_KEY);
-  return saved === "mehr" || saved === "noori" || saved === "noto" ? saved : "noto";
+  return saved === "mehr" || saved === "noori" || saved === "noto" ? saved : "noori";
 };
 
 let fontLoaded = false;

@@ -7,7 +7,7 @@
 import type { TranslationKey } from "../i18n/translations";
 import type { Lang } from "../i18n/translations";
 
-export type ArtVariant = "biryani" | "deal" | "side" | "drink" | "extra";
+export type ArtVariant = "biryani" | "deal" | "rice" | "raita" | "salad" | "drink" | "water";
 
 export interface MenuCategory {
   id: string;
@@ -28,6 +28,8 @@ export interface MenuItem {
   /** Optional label shown next to the price, e.g. "full plate". */
   priceNote?: string;
   priceNoteUr?: string;
+  /** Built-in artwork to show when there is no photo (defaults to the category's artwork). */
+  art?: ArtVariant;
   /** Optional photo, e.g. `image: menuImage("chicken-biryani.jpg")`. When empty or failing to load, built-in artwork is shown. */
   image?: string;
   /** Set to false to show the item as "Unavailable" and block ordering. Defaults to true. */
@@ -48,9 +50,9 @@ export const menuCategories: MenuCategory[] = [
   { id: "mutton", labelKey: "cat.mutton", art: "biryani" },
   { id: "special", labelKey: "cat.special", art: "biryani" },
   { id: "deals", labelKey: "cat.deals", art: "deal" },
-  { id: "sides", labelKey: "cat.sides", art: "side" },
+  { id: "sides", labelKey: "cat.sides", art: "raita" },
   { id: "drinks", labelKey: "cat.drinks", art: "drink" },
-  { id: "extras", labelKey: "cat.extras", art: "extra" },
+  { id: "extras", labelKey: "cat.extras", art: "salad" },
 ];
 
 const FULL_PLATE = { price: 400, priceNote: "full plate", priceNoteUr: "فل پلیٹ" } as const;
@@ -108,6 +110,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "plain-rice",
+    art: "rice",
     name: "Plain Rice",
     nameUr: "سادہ چاول",
     category: "sides",
@@ -117,6 +120,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "raita",
+    art: "raita",
     name: "Raita",
     nameUr: "رائتہ",
     category: "sides",
@@ -126,6 +130,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "salad",
+    art: "salad",
     name: "Fresh Salad",
     nameUr: "تازہ سلاد",
     category: "sides",
@@ -145,6 +150,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "water",
+    art: "water",
     name: "Mineral Water",
     nameUr: "منرل واٹر",
     category: "drinks",
@@ -154,6 +160,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "extra-raita",
+    art: "raita",
     name: "Extra Raita",
     nameUr: "اضافی رائتہ",
     category: "extras",
@@ -163,6 +170,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "extra-salad",
+    art: "salad",
     name: "Extra Salad",
     nameUr: "اضافی سلاد",
     category: "extras",

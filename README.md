@@ -29,17 +29,17 @@ npm run preview    # serve the production build locally
 Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
 ### Replacing the illustrations with real photos
 
-The site currently uses built-in food illustrations. To switch an item to a real photo: copy the image into `public/images/menu/` (about 1200×900, JPG or WebP) and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo is missing or fails to load, the illustration is shown instead.
+The site currently uses detailed built-in food illustrations (not photographs). To switch an item to a real photo: copy the image into `public/images/menu/` (about 1200×900, JPG or WebP) and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo is missing or fails to load, the illustration is shown instead.
 
 ## Urdu (RTL) and Nastaliq fonts
 
 The header has an English / اردو toggle (remembered in the browser). Urdu switches the page to right-to-left and uses a Nastaliq font. The Urdu font can be chosen from the footer (and the mobile menu):
 
-1. **Mehr Nastaliq**
-2. **Noori Nastaliq**
-3. **Noto Nastaliq Urdu** (default)
+1. **Jameel Noori Nastaleeq** (default, used when installed)
+2. **Noto Nastaliq Urdu** (bundled)
+3. **Mehr Nastaliq** (used when installed)
 
-Noto Nastaliq Urdu is bundled with the site (self-hosted, loaded only when Urdu is used), so Urdu always renders correctly. Mehr and Noori Nastaliq are commercial/third-party fonts that cannot be bundled without a licence, so they are used when installed on the visitor's device; otherwise the browser automatically falls back to the closest Nastaliq font. If you hold a licence for either font, add it with an `@font-face` rule in `src/styles/global.css` using the family names `Mehr Nastaliq Web` / `Noori Nastaleeq`. Font stacks are defined in the "Urdu (RTL)" section of `global.css`.
+The default font order is Jameel Noori Nastaleeq, then Noto Nastaliq Urdu, then Mehr Nastaliq, then an Urdu system font. Noto Nastaliq Urdu is bundled with the site (self-hosted, loaded only when Urdu is used), so Urdu always renders correctly. Jameel Noori and Mehr Nastaliq are third-party fonts that cannot be bundled without a licence, so they are used when installed on the visitor's device; otherwise the browser automatically falls back to the closest Nastaliq font. If you hold a licence for either font, add it with an `@font-face` rule in `src/styles/global.css` using the family names `Jameel Noori Nastaleeq` / `Mehr Nastaliq Web`. Font stacks are defined in the "Urdu (RTL)" section of `global.css`.
 
 ## Connecting order and contact channels
 

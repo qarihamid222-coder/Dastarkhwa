@@ -139,7 +139,10 @@ main:focus { outline: none; }
   background-image: radial-gradient(var(--gold) 1.2px, transparent 1.2px); background-size: 22px 22px;
 }
 .hero__grid { position: relative; display: grid; gap: 2rem; align-items: center; padding-block: 3rem 3.5rem; }
-.hero__brand { color: var(--gold); font-weight: 700; letter-spacing: .28em; text-transform: uppercase; font-size: .8rem; margin-bottom: 1rem; }
+.hero__identity { display: grid; justify-items: start; gap: .35rem; margin-bottom: 1.25rem; padding-inline-start: .9rem; border-inline-start: 3px solid var(--gold); }
+.hero__place { display: inline-flex; align-items: center; gap: .4rem; margin: 0; color: rgb(255 255 255 / 88%); font-size: .95rem; font-weight: 500; }
+.hero__place svg { width: 16px; height: 16px; color: var(--gold); }
+.hero__brand { color: var(--gold); font-weight: 700; letter-spacing: .22em; text-transform: uppercase; font-size: .85rem; margin: 0; }
 .hero h1 { color: var(--white); margin-bottom: .6em; }
 .hero__lead { font-size: 1.1rem; max-width: 34rem; color: rgb(255 255 255 / 88%); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; }
@@ -334,14 +337,15 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .map__placeholder .btn { margin-top: .5rem; }
 
 /* ===== Urdu (RTL) & Nastaliq typography ===== */
-/* Use Mehr / Noori Nastaliq when installed on the visitor's device (under any common installed name). */
+/* Use Jameel Noori / Mehr Nastaliq when installed on the visitor's device (under any common installed name). */
+@font-face { font-family: "Jameel Noori Nastaleeq"; src: local("Jameel Noori Nastaleeq"), local("JameelNooriNastaleeq"), local("Jameel Noori Nastaleeq Regular"), local("Jameel Noori Nastaliq"); }
 @font-face { font-family: "Mehr Nastaliq Web"; src: local("Mehr Nastaliq Web"), local("MehrNastaliqWeb"), local("Mehr Nastaliq"), local("Mehr Nastaleeq"); }
-@font-face { font-family: "Noori Nastaleeq"; src: local("Noori Nastaleeq"), local("NooriNastaleeq"), local("Noori Nastaliq"), local("Jameel Noori Nastaleeq"), local("JameelNooriNastaleeq"); }
-/* Font stacks: requested font first, then the closest Nastaliq alternatives. */
-:root { --font-ur: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Mehr Nastaliq Web", "Urdu Typesetting", serif; }
-:root[data-urdu-font="mehr"] { --font-ur: "Mehr Nastaliq Web", "Mehr Nastaliq", "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Urdu Typesetting", serif; }
-:root[data-urdu-font="noori"] { --font-ur: "Noori Nastaleeq", "Jameel Noori Nastaleeq", "Noori Nastaliq", "Noto Nastaliq Urdu", "Mehr Nastaliq Web", "Urdu Typesetting", serif; }
-:root[data-urdu-font="noto"] { --font-ur: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Mehr Nastaliq Web", "Urdu Typesetting", serif; }
+@font-face { font-family: "Noori Nastaleeq"; src: local("Noori Nastaleeq"), local("NooriNastaleeq"), local("Noori Nastaliq"); }
+/* Preferred order: Jameel Noori Nastaleeq, Noto Nastaliq Urdu (bundled), Mehr Nastaliq, then an Urdu system font. */
+:root { --font-ur: "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Noto Nastaliq Urdu", "Mehr Nastaliq Web", "Mehr Nastaliq", "Urdu Typesetting", "Noto Naskh Arabic", serif; }
+:root[data-urdu-font="noori"] { --font-ur: "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Noto Nastaliq Urdu", "Mehr Nastaliq Web", "Mehr Nastaliq", "Urdu Typesetting", "Noto Naskh Arabic", serif; }
+:root[data-urdu-font="noto"] { --font-ur: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noori Nastaleeq", "Mehr Nastaliq Web", "Mehr Nastaliq", "Urdu Typesetting", "Noto Naskh Arabic", serif; }
+:root[data-urdu-font="mehr"] { --font-ur: "Mehr Nastaliq Web", "Mehr Nastaliq", "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", "Noori Nastaleeq", "Urdu Typesetting", "Noto Naskh Arabic", serif; }
 
 :root[lang="ur"] { --font-body: var(--font-ur); --font-head: var(--font-ur); }
 :root[lang="ur"] body { font-size: 1.15rem; line-height: 2.15; }
@@ -370,3 +374,16 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 /* Phone numbers, emails and code-like text stay left-to-right but right-aligned in RTL fields. */
 :root[dir="rtl"] input[type="tel"], :root[dir="rtl"] input[type="email"] { text-align: right; }
 [dir="rtl"] .details__value a { unicode-bidi: isolate; }
+
+/* ===== Urdu hero + text balance ===== */
+:root[lang="ur"] .hero h1 { line-height: 2.05; font-size: clamp(1.7rem, 7.2vw, 3.1rem); margin-bottom: .35em; text-wrap: balance; }
+:root[lang="ur"] .hero__line { display: block; white-space: nowrap; }
+:root[lang="ur"] .hero__identity { gap: 0; margin-bottom: 1rem; }
+:root[lang="ur"] .hero__brand { font-size: clamp(1.25rem, 4.6vw, 1.7rem); line-height: 1.9; font-weight: 700; }
+:root[lang="ur"] .hero__place { font-size: 1.05rem; line-height: 1.9; }
+:root[lang="ur"] .hero__lead { font-size: 1.12rem; line-height: 2.2; text-wrap: pretty; }
+:root[lang="ur"] h1, :root[lang="ur"] h2, :root[lang="ur"] h3, :root[lang="ur"] .section__intro, :root[lang="ur"] .lead-text { text-wrap: balance; }
+:root[lang="ur"] p, :root[lang="ur"] li { text-wrap: pretty; }
+:root[lang="ur"] .section__head { max-width: 46rem; }
+:root[lang="ur"] .hero__cta .btn { min-width: 9.5rem; }
+@media (max-width: 380px) { :root[lang="ur"] .hero h1 { font-size: 1.55rem; } }

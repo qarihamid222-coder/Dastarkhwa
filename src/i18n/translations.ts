@@ -28,7 +28,8 @@ const en = {
   "common.loading": "Loading…",
 
   // Hero & home
-  "hero.title": "Authentic Karachi Biryani, Made With Love",
+  "hero.title1": "Authentic Karachi Biryani,",
+  "hero.title2": "Made With Love",
   "hero.lead": "Delicious, aromatic and flavorful biryani made with authentic Pakistani taste.",
   "hero.order": "ORDER NOW",
   "hero.menu": "VIEW MENU",
@@ -253,7 +254,8 @@ const ur: Record<TranslationKey, string> = {
   "lang.fontLabel": "اردو فونٹ",
   "common.loading": "لوڈ ہو رہا ہے…",
 
-  "hero.title": "پیار سے تیار کردہ، اصل کراچی کی بریانی",
+  "hero.title1": "پیار سے تیار کردہ،",
+  "hero.title2": "اصل کراچی کی بریانی",
   "hero.lead": "خوشبودار، لذیذ اور ذائقہ دار بریانی، خالص پاکستانی ذائقے کے ساتھ۔",
   "hero.order": "ابھی آرڈر کریں",
   "hero.menu": "مینو دیکھیں",

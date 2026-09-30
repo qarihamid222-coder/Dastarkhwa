@@ -6,6 +6,7 @@ import { ButtonLink } from "../components/Button";
 import { ContactButtons } from "../components/ContactButtons";
 import { ContactDetails } from "../components/ContactDetails";
 import { FoodArt } from "../components/FoodArt";
+import { IconPin } from "../components/Icons";
 import { MenuCard } from "../components/MenuCard";
 import { Section } from "../components/Section";
 import { WhyChooseUs } from "../components/WhyChooseUs";
@@ -20,10 +21,15 @@ export default function Home() {
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero__grid">
           <div className="hero__copy">
-            <p className="hero__brand">
-              {t("brand.name")} · {t("brand.place")}
-            </p>
-            <h1 id="hero-title">{t("hero.title")}</h1>
+            <div className="hero__identity">
+              <p className="hero__brand">{t("brand.name")}</p>
+              <p className="hero__place">
+                <IconPin /> {t("brand.place")}
+              </p>
+            </div>
+            <h1 id="hero-title">
+              <span className="hero__line">{t("hero.title1")}</span> <span className="hero__line">{t("hero.title2")}</span>
+            </h1>
             <p className="hero__lead">{t("hero.lead")}</p>
             <div className="hero__cta">
               <ButtonLink to="/order" size="lg">
