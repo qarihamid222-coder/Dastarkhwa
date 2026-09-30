@@ -14,7 +14,7 @@ npm run preview    # serve the production build locally
 
 ## Going live
 
-`npm run build` creates the site in `dist/`. It is a static site, so it can be hosted on Netlify, Vercel, Cloudflare Pages or any static host. The repository already contains the "serve `index.html` for every path" rule that routes like `/menu` need on refresh: `public/_redirects` (Netlify, Cloudflare Pages) and `vercel.json` (Vercel). On other hosts, add the same fallback rule. Once a domain exists, connect it in the host's dashboard.
+`npm run build` creates the site in `dist/`. It is a static site, so it can be hosted on Netlify, Vercel, Cloudflare Pages or any static host. Cloudflare Pages serves `index.html` for unknown routes (such as `/menu` on refresh) automatically, so no redirect file is needed there (adding a `/* /index.html 200` rule to `_redirects` makes Cloudflare report an infinite loop). `vercel.json` contains the equivalent rule for Vercel. On Netlify or other hosts, add a "serve `index.html` for every path" rewrite rule. Once a domain exists, connect it in the host's dashboard.
 
 ## Editing content
 
