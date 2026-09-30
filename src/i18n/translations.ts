@@ -74,6 +74,7 @@ const en = {
   "about.standEyebrow": "Why choose us",
   "about.standTitle": "What we stand for",
   "about.art": "Illustration of a bowl of biryani",
+  "photo.biryaniAlt": "Chicken biryani served on a platter with raita, salad and a cold drink",
 
   // Menu
   "menu.title": "Our Menu",
@@ -298,6 +299,7 @@ const ur: Record<TranslationKey, string> = {
   "about.standEyebrow": "ہمیں کیوں چنیں",
   "about.standTitle": "ہماری ترجیحات",
   "about.art": "بریانی کے پیالے کی تصویر",
+  "photo.biryaniAlt": "پلیٹر میں چکن بریانی، ساتھ رائتہ، سلاد اور ٹھنڈا مشروب",
 
   "menu.title": "ہمارا مینو",
   "menu.intro": "چکن، بیف، مٹن اور سپیشل بریانی، فیملی ڈیلز، سائیڈ آئٹمز، مشروبات اور ایکسٹرا۔",

@@ -44,6 +44,12 @@ export interface MenuItem {
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
+/**
+ * Real biryani photo used on the Chicken and Special biryani cards, the Home hero and About page.
+ * Add the file `public/images/menu/chicken-biryani.jpg`; until it exists the built-in artwork is shown.
+ */
+export const BIRYANI_PHOTO = menuImage("chicken-biryani.jpg");
+
 export const menuCategories: MenuCategory[] = [
   { id: "chicken", labelKey: "cat.chicken", art: "biryani" },
   { id: "beef", labelKey: "cat.beef", art: "biryani" },
@@ -60,6 +66,7 @@ const FULL_PLATE = { price: 400, priceNote: "full plate", priceNoteUr: "فل پ�
 export const menuItems: MenuItem[] = [
   {
     id: "chicken-biryani",
+    image: BIRYANI_PHOTO,
     name: "Chicken Biryani",
     nameUr: "چکن بریانی",
     category: "chicken",
@@ -90,6 +97,7 @@ export const menuItems: MenuItem[] = [
   },
   {
     id: "special-biryani",
+    image: BIRYANI_PHOTO,
     name: "Special Biryani",
     nameUr: "سپیشل بریانی",
     category: "special",

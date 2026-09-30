@@ -27,9 +27,11 @@ npm run preview    # serve the production build locally
 | Logo | `src/components/Logo.tsx` |
 
 Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
-### Replacing the illustrations with real photos
+### Real food photos
 
-The site currently uses detailed built-in food illustrations (not photographs). To switch an item to a real photo: copy the image into `public/images/menu/` (about 1200×900, JPG or WebP) and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo is missing or fails to load, the illustration is shown instead.
+The site is wired to use a real biryani photo at **`public/images/menu/chicken-biryani.jpg`** (about 1200×900, 4:3, JPG or WebP-as-jpg, ideally under 1 MB). Once that file exists it is shown on the Home hero, the About page and the Chicken and Special biryani cards (the Pepsi/soft-drink bottle in the photo stays as part of the picture). Until the file exists, detailed built-in artwork is shown instead, so nothing looks broken. Beef and Mutton keep their artwork until photos of those dishes are added.
+
+To use more photos: copy the image into `public/images/menu/` and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo fails to load, the artwork is shown instead.
 
 ## Urdu (RTL) and Nastaliq fonts
 

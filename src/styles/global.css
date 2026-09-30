@@ -147,6 +147,7 @@ main:focus { outline: none; }
 .hero__lead { font-size: 1.1rem; max-width: 34rem; color: rgb(255 255 255 / 88%); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; }
 .hero__art { display: grid; place-items: center; }
+.hero__photo { width: min(100%, 560px); height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 20px; border: 4px solid rgb(217 164 65 / 55%); box-shadow: 0 24px 50px rgb(0 0 0 / 40%); background: var(--green-800); }
 .hero__plate { width: min(100%, 460px); filter: drop-shadow(0 24px 30px rgb(0 0 0 / 35%)); animation: float 6s ease-in-out infinite; }
 @media (min-width: 900px) {
   .hero__grid { grid-template-columns: 1.1fr .9fr; padding-block: 5rem 5.5rem; gap: 3rem; }
@@ -205,7 +206,8 @@ main:focus { outline: none; }
 .feature__icon svg { width: 28px; height: 28px; }
 .feature p { color: var(--muted); margin: 0; font-size: .95rem; }
 .about-art { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 4 / 3; }
-.about-art svg { width: 100%; height: 100%; }
+.about-art svg, .about-art img { width: 100%; height: 100%; }
+.about-art .food-image { height: 100%; aspect-ratio: auto; }
 
 /* ===== Details / map / CTA ===== */
 .details { display: grid; gap: 1rem; }

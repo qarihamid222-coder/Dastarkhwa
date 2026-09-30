@@ -5,7 +5,7 @@ import { usePageMeta } from "../hooks/usePageMeta";
 import { ButtonLink } from "../components/Button";
 import { ContactButtons } from "../components/ContactButtons";
 import { ContactDetails } from "../components/ContactDetails";
-import { FoodArt } from "../components/FoodArt";
+import { HeroMedia } from "../components/HeroMedia";
 import { IconPin } from "../components/Icons";
 import { MenuCard } from "../components/MenuCard";
 import { Section } from "../components/Section";
@@ -40,11 +40,7 @@ export default function Home() {
               </ButtonLink>
             </div>
           </div>
-          <div className="hero__art" role="img" aria-label={t("hero.art")}>
-            <div className="hero__plate">
-              <FoodArt variant="biryani" bare />
-            </div>
-          </div>
+          <HeroMedia />
         </div>
       </section>
 

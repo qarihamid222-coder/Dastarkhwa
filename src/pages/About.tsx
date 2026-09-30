@@ -4,7 +4,8 @@ import { ButtonLink } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { Section } from "../components/Section";
 import { WhyChooseUs } from "../components/WhyChooseUs";
-import { FoodArt } from "../components/FoodArt";
+import { FoodImage } from "../components/FoodImage";
+import { BIRYANI_PHOTO } from "../data/menu";
 
 export default function About() {
   usePageMeta("seo.aboutTitle", "seo.aboutDesc");
@@ -22,8 +23,8 @@ export default function About() {
               {t("about.explore")}
             </ButtonLink>
           </div>
-          <div className="about-art" role="img" aria-label={t("about.art")}>
-            <FoodArt variant="biryani" />
+          <div className="about-art">
+            <FoodImage src={BIRYANI_PHOTO} alt={t("photo.biryaniAlt")} variant="biryani" />
           </div>
         </div>
       </Section>
