@@ -29,13 +29,13 @@ npm run preview    # serve the production build locally
 Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, Single Biryani Rs. 200, Double Biryani Rs. 400, Star Cola Small Bottle Rs. 50). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
 ### Photos (all optional; the site works without them)
 
-Put JPG files (about 1200×900) in these places. Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
+Put JPG files (optimised, under about 500 KB) in these places. The original full-size PNGs for the menu cards are kept in `source-images/` (not deployed). Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
 
 | File | Where it appears |
 | --- | --- |
-| `public/images/menu/chicken-biryani.jpg` | Home hero, About page, and the Single/Double biryani cards (default) |
-| `public/images/menu/single-biryani.jpg` | Single Biryani card (overrides the default photo) |
-| `public/images/menu/double-biryani.jpg` | Double Biryani card (overrides the default photo) |
+| `public/images/menu/chicken-biryani.jpg` | Home hero and About page |
+| `public/images/menu/single-biryani.jpg` | Single Biryani card |
+| `public/images/menu/double-biryani.jpg` | Double Biryani card |
 | `public/images/menu/star-cola.jpg` | Star Cola Small Bottle card |
 | `public/images/owner.jpg` | "Meet the owner" card on the About page (portrait, about 800×1000; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
 | `public/images/gallery/storefront.jpg`, `interior.jpg`, `dining.jpg`, `counter.jpg` | "Our restaurant" gallery on the About page (only the files that exist are shown) |

@@ -430,3 +430,8 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .gallery__item img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .4s ease; }
 .gallery__item:hover img { transform: scale(1.04); }
 [hidden] { display: none !important; }
+
+/* ===== Poster-style card images: show the whole picture, never cropped or stretched ===== */
+.food-image--contain { position: relative; background: #2a1a10; }
+.food-image--contain .food-image__backdrop { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(18px) brightness(.7) saturate(1.1); }
+.food-image--contain .food-image__main { position: relative; object-fit: contain; }

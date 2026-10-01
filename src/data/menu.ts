@@ -35,6 +35,8 @@ export interface MenuItem {
   image?: string;
   /** Second choice if `image` is missing (e.g. the general biryani photo). */
   imageFallback?: string;
+  /** "contain" shows the whole picture (for posters with text/prices); "cover" (default) fills and crops the card image. */
+  imageFit?: "cover" | "contain";
   /** Set to false to show the item as "Unavailable" and block ordering. Defaults to true. */
   available?: boolean;
   featured?: boolean;
@@ -43,14 +45,14 @@ export interface MenuItem {
 /**
  * Photo folder: put real photos in `public/images/menu/` (about 1200x900, JPG) and reference them with
  * `menuImage("file.jpg")`. Until a photo exists the fallback image or built-in artwork is shown.
- *   - chicken-biryani.jpg  general biryani photo (Home hero, About, and the biryani cards)
- *   - single-biryani.jpg   optional: a photo of a single portion
- *   - double-biryani.jpg   optional: a photo of a double portion
- *   - star-cola.jpg        optional: Star Cola small bottle photo
+ *   - chicken-biryani.jpg  biryani photo used on the Home hero and About page
+ *   - single-biryani.jpg   Single Biryani card image
+ *   - double-biryani.jpg   Double Biryani card image
+ *   - star-cola.jpg        Star Cola Small Bottle card image
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
-/** Real biryani photo used on the Home hero, About page and as the default for the biryani cards. */
+/** Real biryani photo used on the Home hero and About page. */
 export const BIRYANI_PHOTO = menuImage("chicken-biryani.jpg");
 
 export const menuCategories: MenuCategory[] = [
@@ -72,7 +74,7 @@ export const menuItems: MenuItem[] = [
     price: 200,
     portion: "single",
     image: menuImage("single-biryani.jpg"),
-    imageFallback: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {
@@ -85,7 +87,7 @@ export const menuItems: MenuItem[] = [
     price: 400,
     portion: "double",
     image: menuImage("double-biryani.jpg"),
-    imageFallback: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {
@@ -137,6 +139,7 @@ export const menuItems: MenuItem[] = [
     descriptionUr: "کھانے کے ساتھ ٹھنڈی ٹھار سٹار کولا کی چھوٹی بوتل۔",
     price: 50,
     image: menuImage("star-cola.jpg"),
+    imageFit: "contain",
     featured: true,
   },
   {

@@ -39,6 +39,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
         <FoodImage
           src={item.image}
           fallbackSrc={item.imageFallback}
+          fit={item.imageFit}
           alt={item.image ? text.name : t("menu.imageAlt", { name: text.name })}
           variant={item.art ?? category?.art ?? "biryani"}
         />
