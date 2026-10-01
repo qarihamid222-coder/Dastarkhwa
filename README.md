@@ -26,7 +26,7 @@ npm run preview    # serve the production build locally
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, Single Biryani Rs. 200, Double Biryani Rs. 400). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, Single Biryani Rs. 200, Double Biryani Rs. 400, Star Cola Small Bottle Rs. 50). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
 ### Photos (all optional; the site works without them)
 
 Put JPG files (about 1200×900) in these places. Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
