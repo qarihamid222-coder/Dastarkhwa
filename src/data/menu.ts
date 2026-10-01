@@ -1,7 +1,7 @@
 /**
  * Central menu data. EDIT THIS FILE to change items, prices, images, categories and availability.
  * Names and descriptions are in English + Urdu. Prices: Single Biryani Rs. 200, Double Biryani Rs. 400,
- * Star Cola Small Bottle Rs. 50.
+ * Star Cola Small Bottle Rs. 50, Family Deal Rs. 1200.
  * Items with `price: null` show "Price on request" and are confirmed by the restaurant.
  * Set a number (PKR) to show a price and include it in order totals.
  */
@@ -49,6 +49,7 @@ export interface MenuItem {
  *   - single-biryani.jpg   Single Biryani card image
  *   - double-biryani.jpg   Double Biryani card image
  *   - star-cola.jpg        Star Cola Small Bottle card image
+ *   - family-deal.jpg      Family Deal card image
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
@@ -97,7 +98,9 @@ export const menuItems: MenuItem[] = [
     category: "deals",
     description: "A generous family meal option suitable for sharing.",
     descriptionUr: "مل کر کھانے کے لیے موزوں ایک بھرپور فیملی پیکج۔",
-    price: null,
+    price: 1200,
+    image: menuImage("family-deal.jpg"),
+    imageFit: "contain",
     featured: true,
   },
   {
