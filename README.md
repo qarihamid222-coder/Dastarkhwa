@@ -38,7 +38,7 @@ Put JPG files (optimised, under about 500 KB) in these places. The original full
 | `public/images/menu/double-biryani.jpg` | Double Biryani card |
 | `public/images/menu/star-cola.jpg` | Star Cola Small Bottle card |
 | `public/images/menu/family-deal.jpg` | Family Deal card |
-| `public/images/owner.jpg` | "Meet the owner" card on the About page (portrait, about 800×1000; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
+| `public/images/owner.png` | "Meet the owner" card on the About page (portrait about 4:5, transparent PNG or JPG; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
 | `public/images/gallery/storefront.jpg`, `interior.jpg`, `dining.jpg`, `counter.jpg` | "Our restaurant" gallery on the About page (only the files that exist are shown) |
 
 To use a photo for another menu item, add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are cropped (never stretched) to fit, lazy-loaded, and use meaningful alt text.

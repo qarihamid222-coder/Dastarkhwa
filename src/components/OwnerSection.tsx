@@ -2,8 +2,8 @@ import { useState } from "react";
 import { restaurant } from "../data/restaurant";
 import { useI18n } from "../i18n/LanguageContext";
 
-/** Public path of the owner's photo. Add the file `public/images/owner.jpg`; the card stays hidden until it exists. */
-export const OWNER_PHOTO = "/images/owner.jpg";
+/** Public path of the owner's photo (`public/images/owner.png`); the card stays hidden if the file is missing. */
+export const OWNER_PHOTO = "/images/owner.png";
 
 export function OwnerSection() {
   const { lang, t } = useI18n();
@@ -20,8 +20,8 @@ export function OwnerSection() {
             <img
               src={OWNER_PHOTO}
               alt={t("owner.alt")}
-              width={800}
-              height={1000}
+              width={445}
+              height={560}
               decoding="async"
               onLoad={() => setLoaded(true)}
               onError={() => setFailed(true)}
