@@ -7,6 +7,19 @@ import { useI18n } from "../i18n/LanguageContext";
 import { Button } from "./Button";
 import { FoodImage } from "./FoodImage";
 
+function Plates({ count }: { count: number }) {
+  return (
+    <span className="plates" aria-hidden="true">
+      {Array.from({ length: count }, (_, i) => (
+        <svg key={i} viewBox="0 0 24 24" focusable="false">
+          <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" strokeWidth="2" />
+          <circle cx="12" cy="12" r="4.5" fill="currentColor" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
 export function MenuCard({ item }: { item: MenuItem }) {
   const { add } = useCart();
   const { lang, t } = useI18n();
@@ -21,8 +34,21 @@ export function MenuCard({ item }: { item: MenuItem }) {
   };
 
   return (
-    <article className={`card${available ? "" : " card--off"}`}>
-      <FoodImage src={item.image} alt={item.image ? text.name : t("menu.imageAlt", { name: text.name })} variant={item.art ?? category?.art ?? "biryani"} />
+    <article className={`card${available ? "" : " card--off"}${item.portion ? ` card--${item.portion}` : ""}`}>
+      <div className="card__media">
+        <FoodImage
+          src={item.image}
+          fallbackSrc={item.imageFallback}
+          alt={item.image ? text.name : t("menu.imageAlt", { name: text.name })}
+          variant={item.art ?? category?.art ?? "biryani"}
+        />
+        {item.portion && (
+          <span className={`portion portion--${item.portion}`}>
+            <Plates count={item.portion === "double" ? 2 : 1} />
+            {t(item.portion === "double" ? "portion.double" : "portion.single")}
+          </span>
+        )}
+      </div>
       <div className="card__body">
         {category && <p className="card__cat">{t(category.labelKey)}</p>}
         <h3 className="card__title">{text.name}</h3>
@@ -31,7 +57,6 @@ export function MenuCard({ item }: { item: MenuItem }) {
           <p className={`price${item.price === null ? " price--missing" : ""}`}>
             <span className="visually-hidden">{t("menu.price")} </span>
             {formatPrice(item.price, t)}
-            {text.priceNote && item.price !== null && <span className="price__note"> / {text.priceNote}</span>}
           </p>
           {available ? (
             <Button size="md" onClick={order} aria-label={t("menu.orderItem", { name: text.name })}>

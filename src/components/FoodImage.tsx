@@ -4,14 +4,18 @@ import { FoodArt } from "./FoodArt";
 
 interface Props {
   src?: string;
+  /** Used if `src` is missing or fails to load. */
+  fallbackSrc?: string;
   alt: string;
   variant: ArtVariant;
 }
 
-/** Shows the item photo when provided; falls back to built-in artwork if missing or broken. */
-export function FoodImage({ src, alt, variant }: Props) {
-  const [failed, setFailed] = useState(false);
-  if (!src || failed) {
+/** Shows the photo when it exists; otherwise the fallback photo; otherwise the built-in artwork. */
+export function FoodImage({ src, fallbackSrc, alt, variant }: Props) {
+  const sources = [src, fallbackSrc].filter((s): s is string => !!s);
+  const [failed, setFailed] = useState(0);
+  const current = sources[failed];
+  if (!current) {
     return (
       <div className="food-image" role="img" aria-label={alt}>
         <FoodArt variant={variant} />
@@ -20,7 +24,7 @@ export function FoodImage({ src, alt, variant }: Props) {
   }
   return (
     <div className="food-image">
-      <img src={src} alt={alt} loading="lazy" decoding="async" width={472} height={352} onError={() => setFailed(true)} />
+      <img key={current} src={current} alt={alt} loading="lazy" decoding="async" width={472} height={352} onError={() => setFailed((n) => n + 1)} />
     </div>
   );
 }

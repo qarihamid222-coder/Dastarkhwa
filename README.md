@@ -26,12 +26,21 @@ npm run preview    # serve the production build locally
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, biryani full-plate price). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
-### Real food photos
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, Single Biryani Rs. 200, Double Biryani Rs. 400). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
+### Photos (all optional; the site works without them)
 
-The site is wired to use a real biryani photo at **`public/images/menu/chicken-biryani.jpg`** (about 1200×900, 4:3, JPG or WebP-as-jpg, ideally under 1 MB). Once that file exists it is shown on the Home hero, the About page and the Chicken and Special biryani cards (the Pepsi/soft-drink bottle in the photo stays as part of the picture). Until the file exists, detailed built-in artwork is shown instead, so nothing looks broken. Beef and Mutton keep their artwork until photos of those dishes are added.
+Put JPG files (about 1200×900) in these places. Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
 
-To use more photos: copy the image into `public/images/menu/` and add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are lazy-loaded, cropped to fit the card, and use the item name as alt text; if a photo fails to load, the artwork is shown instead.
+| File | Where it appears |
+| --- | --- |
+| `public/images/menu/chicken-biryani.jpg` | Home hero, About page, and the Single/Double biryani cards (default) |
+| `public/images/menu/single-biryani.jpg` | Single Biryani card (overrides the default photo) |
+| `public/images/menu/double-biryani.jpg` | Double Biryani card (overrides the default photo) |
+| `public/images/menu/star-cola.jpg` | Star Cola Small Bottle card |
+| `public/images/owner.jpg` | "Meet the owner" card on the About page (portrait, about 800×1000; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
+| `public/images/gallery/storefront.jpg`, `interior.jpg`, `dining.jpg`, `counter.jpg` | "Our restaurant" gallery on the About page (only the files that exist are shown) |
+
+To use a photo for another menu item, add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are cropped (never stretched) to fit, lazy-loaded, and use meaningful alt text.
 
 ## Urdu (RTL) and Nastaliq fonts
 

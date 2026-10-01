@@ -139,11 +139,11 @@ main:focus { outline: none; }
   background-image: radial-gradient(var(--gold) 1.2px, transparent 1.2px); background-size: 22px 22px;
 }
 .hero__grid { position: relative; display: grid; gap: 2rem; align-items: center; padding-block: 3rem 3.5rem; }
-.hero__identity { display: grid; justify-items: start; gap: .35rem; margin-bottom: 1.25rem; padding-inline-start: .9rem; border-inline-start: 3px solid var(--gold); }
+.hero__identity { display: grid; justify-items: start; gap: .5rem; margin-bottom: 1.25rem; padding-inline-start: .9rem; border-inline-start: 3px solid var(--gold); }
 .hero__place { display: inline-flex; align-items: center; gap: .4rem; margin: 0; color: rgb(255 255 255 / 88%); font-size: .95rem; font-weight: 500; }
 .hero__place svg { width: 16px; height: 16px; color: var(--gold); }
-.hero__brand { color: var(--gold); font-weight: 700; letter-spacing: .22em; text-transform: uppercase; font-size: .85rem; margin: 0; }
-.hero h1 { color: var(--white); margin-bottom: .6em; }
+.hero__brand { color: var(--gold); font-family: var(--font-head); font-weight: 700; font-size: clamp(2.1rem, 5.4vw, 3.7rem); line-height: 1.1; letter-spacing: .015em; text-transform: none; margin: 0; text-shadow: 0 2px 18px rgb(0 0 0 / 35%); }
+.hero h1 { color: var(--white); font-size: clamp(1.35rem, 3.2vw, 2.1rem); font-weight: 600; margin-bottom: .6em; }
 .hero__lead { font-size: 1.1rem; max-width: 34rem; color: rgb(255 255 255 / 88%); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.5rem; }
 .hero__art { display: grid; place-items: center; }
@@ -378,14 +378,55 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 [dir="rtl"] .details__value a { unicode-bidi: isolate; }
 
 /* ===== Urdu hero + text balance ===== */
-:root[lang="ur"] .hero h1 { line-height: 2.05; font-size: clamp(1.7rem, 7.2vw, 3.1rem); margin-bottom: .35em; text-wrap: balance; }
+:root[lang="ur"] .hero h1 { line-height: 2.05; font-size: clamp(1.3rem, 5vw, 2.1rem); margin-bottom: .35em; text-wrap: balance; }
 :root[lang="ur"] .hero__line { display: block; white-space: nowrap; }
 :root[lang="ur"] .hero__identity { gap: 0; margin-bottom: 1rem; }
-:root[lang="ur"] .hero__brand { font-size: clamp(1.25rem, 4.6vw, 1.7rem); line-height: 1.9; font-weight: 700; }
+:root[lang="ur"] .hero__brand { font-size: clamp(2rem, 7.4vw, 3.5rem); line-height: 1.7; font-weight: 700; text-shadow: 0 2px 18px rgb(0 0 0 / 35%); }
 :root[lang="ur"] .hero__place { font-size: 1.05rem; line-height: 1.9; }
 :root[lang="ur"] .hero__lead { font-size: 1.12rem; line-height: 2.2; text-wrap: pretty; }
 :root[lang="ur"] h1, :root[lang="ur"] h2, :root[lang="ur"] h3, :root[lang="ur"] .section__intro, :root[lang="ur"] .lead-text { text-wrap: balance; }
 :root[lang="ur"] p, :root[lang="ur"] li { text-wrap: pretty; }
 :root[lang="ur"] .section__head { max-width: 46rem; }
 :root[lang="ur"] .hero__cta .btn { min-width: 9.5rem; }
-@media (max-width: 380px) { :root[lang="ur"] .hero h1 { font-size: 1.55rem; } }
+@media (max-width: 380px) { :root[lang="ur"] .hero h1 { font-size: 1.25rem; } :root[lang="ur"] .hero__brand { font-size: 1.85rem; } }
+
+/* ===== Premium restaurant theme touches ===== */
+.section__head h2::after { content: ""; display: block; width: 72px; height: 3px; margin: .7rem auto 0; border-radius: 3px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.section--cream { background: linear-gradient(180deg, var(--cream), #f6ecd8); }
+.card { border-color: #e9dcc0; }
+.header { box-shadow: 0 1px 0 rgb(217 164 65 / 35%); }
+
+/* ===== Menu cards: portions ===== */
+.card__media { position: relative; }
+.portion { position: absolute; top: 12px; inset-inline-start: 12px; display: inline-flex; align-items: center; gap: .35rem; padding: .3rem .75rem; border-radius: 999px; font-size: .8rem; font-weight: 700; line-height: 1.5; box-shadow: var(--shadow-sm); }
+.portion--single { background: rgb(255 255 255 / 95%); color: var(--green-900); }
+.portion--double { background: var(--gold); color: #3a2605; }
+.plates { display: inline-flex; gap: 2px; }
+.plates svg { width: 14px; height: 14px; }
+.card--double { border: 2px solid var(--gold); box-shadow: 0 10px 30px rgb(217 164 65 / 30%); }
+.card--double .price { color: var(--maroon); font-size: 1.2rem; }
+.card--single .price { font-size: 1.15rem; }
+:root[lang="ur"] .portion { font-size: .95rem; padding-block: .1rem; }
+
+/* ===== Owner card ===== */
+.owner { display: grid; gap: 2rem; align-items: center; max-width: 920px; margin-inline: auto; padding: 1.5rem; background: var(--cream); border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); }
+.owner__photo { margin: 0; justify-self: center; width: min(100%, 300px); position: relative; }
+.owner__photo::before { content: ""; position: absolute; inset: 10px -10px -10px 10px; border: 2px solid var(--gold); border-radius: 20px; z-index: 0; }
+[dir="rtl"] .owner__photo::before { inset: 10px 10px -10px -10px; }
+.owner__photo img { position: relative; z-index: 1; width: 100%; aspect-ratio: 4 / 5; height: auto; object-fit: cover; object-position: 50% 22%; border-radius: 18px; border: 5px solid var(--white); box-shadow: var(--shadow); }
+.owner__text .eyebrow { margin-bottom: .4rem; }
+.owner__text h2 { text-align: start; }
+.owner__text h2::after { content: ""; display: block; width: 72px; height: 3px; margin: .7rem 0 0; border-radius: 3px; background: linear-gradient(90deg, var(--gold), transparent); }
+[dir="rtl"] .owner__text h2::after { background: linear-gradient(270deg, var(--gold), transparent); }
+.owner__name { font-family: var(--font-head); font-size: 1.2rem; font-weight: 700; color: var(--maroon); margin: 1rem 0 0; }
+@media (min-width: 760px) { .owner { grid-template-columns: 300px 1fr; gap: 3rem; padding: 2rem 2.5rem; } }
+.owner__text h2, .owner__text .eyebrow { text-align: start; }
+.section__head h2::after { margin-inline: auto; }
+.owner__text h2::after { margin-inline: 0; }
+
+/* ===== Restaurant gallery ===== */
+.gallery { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.gallery__item { margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--line); background: var(--white); }
+.gallery__item img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .4s ease; }
+.gallery__item:hover img { transform: scale(1.04); }
+[hidden] { display: none !important; }

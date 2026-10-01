@@ -5,6 +5,8 @@ import { PageHero } from "../components/PageHero";
 import { Section } from "../components/Section";
 import { WhyChooseUs } from "../components/WhyChooseUs";
 import { FoodImage } from "../components/FoodImage";
+import { OwnerSection } from "../components/OwnerSection";
+import { RestaurantGallery } from "../components/RestaurantGallery";
 import { BIRYANI_PHOTO } from "../data/menu";
 
 export default function About() {
@@ -28,6 +30,8 @@ export default function About() {
           </div>
         </div>
       </Section>
+      <OwnerSection />
+      <RestaurantGallery />
       <Section eyebrow={t("about.standEyebrow")} title={t("about.standTitle")} tone="cream">
         <WhyChooseUs />
       </Section>

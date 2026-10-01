@@ -29,6 +29,9 @@ export const restaurant = {
   openingHours: ["Open 24 hours"],
   openingHoursUr: ["24 گھنٹے کھلا"],
   /** Search link (no exact pin is claimed) until a precise Google Maps location is provided. */
+  /** Optional: shown on the About page owner card when set. Leave empty to show the card without a name. */
+  ownerName: "",
+  ownerNameUr: "",
   mapSearchUrl:
     "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Karachi Biryani Center, Chitral City"),
   mapEmbedUrl: (env.VITE_MAP_EMBED_URL as string | undefined) ?? "",

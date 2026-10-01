@@ -1,13 +1,14 @@
 /**
  * Central menu data. EDIT THIS FILE to change items, prices, images, categories and availability.
- * Names and descriptions are in English + Urdu. Only the biryani "full plate" price has been
- * provided so far; items with `price: null` show "Price on request" and are confirmed by the
- * restaurant. Set a number (PKR) to show a price and include it in order totals.
+ * Names and descriptions are in English + Urdu. Biryani prices: Single Rs. 200, Double Rs. 400.
+ * Items with `price: null` show "Price on request" and are confirmed by the restaurant.
+ * Set a number (PKR) to show a price and include it in order totals.
  */
 import type { TranslationKey } from "../i18n/translations";
 import type { Lang } from "../i18n/translations";
 
 export type ArtVariant = "biryani" | "deal" | "rice" | "raita" | "salad" | "drink" | "water";
+export type Portion = "single" | "double";
 
 export interface MenuCategory {
   id: string;
@@ -25,85 +26,65 @@ export interface MenuItem {
   descriptionUr: string;
   /** PKR amount, or null while the price has not been provided. */
   price: number | null;
-  /** Optional label shown next to the price, e.g. "full plate". */
-  priceNote?: string;
-  priceNoteUr?: string;
+  /** Shows a "Single" / "Double" portion badge on the card. */
+  portion?: Portion;
   /** Built-in artwork to show when there is no photo (defaults to the category's artwork). */
   art?: ArtVariant;
-  /** Optional photo, e.g. `image: menuImage("chicken-biryani.jpg")`. When empty or failing to load, built-in artwork is shown. */
+  /** Optional photo, e.g. `image: menuImage("single-biryani.jpg")`. When empty or failing to load, the fallback image or built-in artwork is shown. */
   image?: string;
+  /** Second choice if `image` is missing (e.g. the general biryani photo). */
+  imageFallback?: string;
   /** Set to false to show the item as "Unavailable" and block ordering. Defaults to true. */
   available?: boolean;
   featured?: boolean;
 }
 
 /**
- * Photo folder: put real photos in `public/images/menu/` (e.g. `chicken-biryani.jpg`, about 1200×900,
- * JPG/WebP) and reference them with `menuImage("chicken-biryani.jpg")` in the item's `image` field.
- * Until an item has an `image`, the built-in illustration is shown (also if a photo fails to load).
+ * Photo folder: put real photos in `public/images/menu/` (about 1200x900, JPG) and reference them with
+ * `menuImage("file.jpg")`. Until a photo exists the fallback image or built-in artwork is shown.
+ *   - chicken-biryani.jpg  general biryani photo (Home hero, About, and the biryani cards)
+ *   - single-biryani.jpg   optional: a photo of a single portion
+ *   - double-biryani.jpg   optional: a photo of a double portion
+ *   - star-cola.jpg        optional: Star Cola small bottle photo
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
-/**
- * Real biryani photo used on the Chicken and Special biryani cards, the Home hero and About page.
- * Add the file `public/images/menu/chicken-biryani.jpg`; until it exists the built-in artwork is shown.
- */
+/** Real biryani photo used on the Home hero, About page and as the default for the biryani cards. */
 export const BIRYANI_PHOTO = menuImage("chicken-biryani.jpg");
 
 export const menuCategories: MenuCategory[] = [
-  { id: "chicken", labelKey: "cat.chicken", art: "biryani" },
-  { id: "beef", labelKey: "cat.beef", art: "biryani" },
-  { id: "mutton", labelKey: "cat.mutton", art: "biryani" },
-  { id: "special", labelKey: "cat.special", art: "biryani" },
+  { id: "biryani", labelKey: "cat.biryani", art: "biryani" },
   { id: "deals", labelKey: "cat.deals", art: "deal" },
   { id: "sides", labelKey: "cat.sides", art: "raita" },
   { id: "drinks", labelKey: "cat.drinks", art: "drink" },
   { id: "extras", labelKey: "cat.extras", art: "salad" },
 ];
 
-const FULL_PLATE = { price: 400, priceNote: "full plate", priceNoteUr: "فل پلیٹ" } as const;
-
 export const menuItems: MenuItem[] = [
   {
-    id: "chicken-biryani",
-    image: BIRYANI_PHOTO,
-    name: "Chicken Biryani",
-    nameUr: "چکن بریانی",
-    category: "chicken",
-    description: "Fragrant basmati rice cooked with tender chicken and authentic biryani spices.",
-    descriptionUr: "خوشبودار باسمتی چاول، نرم چکن اور اصل بریانی مسالوں کے ساتھ تیار۔",
-    ...FULL_PLATE,
+    id: "single-biryani",
+    name: "Single Biryani",
+    nameUr: "سنگل بریانی",
+    category: "biryani",
+    description: "One generous portion of fragrant basmati rice with tender meat and authentic biryani spices.",
+    descriptionUr: "خوشبودار باسمتی چاول، نرم گوشت اور اصل بریانی مسالوں کے ساتھ ایک بھرپور پورشن۔",
+    price: 200,
+    portion: "single",
+    image: menuImage("single-biryani.jpg"),
+    imageFallback: BIRYANI_PHOTO,
     featured: true,
   },
   {
-    id: "beef-biryani",
-    name: "Beef Biryani",
-    nameUr: "بیف بریانی",
-    category: "beef",
-    description: "Rich and flavorful biryani prepared with tender beef and aromatic spices.",
-    descriptionUr: "نرم بیف اور خوشبودار مسالوں سے تیار بھرپور ذائقہ دار بریانی۔",
-    ...FULL_PLATE,
-    featured: true,
-  },
-  {
-    id: "mutton-biryani",
-    name: "Mutton Biryani",
-    nameUr: "مٹن بریانی",
-    category: "mutton",
-    description: "Traditional-style mutton biryani with fragrant rice and carefully balanced spices.",
-    descriptionUr: "روایتی انداز کی مٹن بریانی، خوشبودار چاول اور متوازن مسالوں کے ساتھ۔",
-    ...FULL_PLATE,
-    featured: true,
-  },
-  {
-    id: "special-biryani",
-    image: BIRYANI_PHOTO,
-    name: "Special Biryani",
-    nameUr: "سپیشل بریانی",
-    category: "special",
-    description: "Our special biryani selection prepared with a rich blend of aromatic spices.",
-    descriptionUr: "خوشبودار مسالوں کے بھرپور امتزاج سے تیار ہماری خاص بریانی۔",
-    ...FULL_PLATE,
+    id: "double-biryani",
+    name: "Double Biryani",
+    nameUr: "ڈبل بریانی",
+    category: "biryani",
+    description: "A double portion of our biryani, ideal for a bigger appetite or for sharing.",
+    descriptionUr: "ہماری بریانی کا ڈبل پورشن، زیادہ بھوک کے لیے یا مل کر کھانے کے لیے موزوں۔",
+    price: 400,
+    portion: "double",
+    image: menuImage("double-biryani.jpg"),
+    imageFallback: BIRYANI_PHOTO,
     featured: true,
   },
   {
@@ -147,13 +128,14 @@ export const menuItems: MenuItem[] = [
     price: null,
   },
   {
-    id: "cold-drink",
-    name: "Cold Drink",
-    nameUr: "کولڈ ڈرنک",
+    id: "star-cola",
+    name: "Star Cola Small Bottle",
+    nameUr: "سٹار کولا چھوٹی بوتل",
     category: "drinks",
-    description: "Refreshing drinks to complement your meal.",
-    descriptionUr: "کھانے کے ساتھ تازگی بخش مشروب۔",
+    description: "A small, ice-cold Star Cola bottle to go with your meal.",
+    descriptionUr: "کھانے کے ساتھ ٹھنڈی ٹھار سٹار کولا کی چھوٹی بوتل۔",
     price: null,
+    image: menuImage("star-cola.jpg"),
     featured: true,
   },
   {
@@ -196,5 +178,4 @@ export const isAvailable = (item: MenuItem) => item.available !== false;
 export const itemText = (item: MenuItem, lang: Lang) => ({
   name: lang === "ur" ? item.nameUr : item.name,
   description: lang === "ur" ? item.descriptionUr : item.description,
-  priceNote: lang === "ur" ? item.priceNoteUr : item.priceNote,
 });
