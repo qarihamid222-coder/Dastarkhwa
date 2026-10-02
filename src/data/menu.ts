@@ -1,7 +1,7 @@
 /**
  * Central menu data. EDIT THIS FILE to change items, prices, images, categories and availability.
- * Names and descriptions are in English + Urdu. Prices: Single Biryani Rs. 200, Double Biryani Rs. 400,
- * Star Cola Small Bottle Rs. 50, Family Deal Rs. 1200.
+ * Names and descriptions are in English + Urdu. Prices: Attock Beef Biryani Single Rs. 200 and Double Rs. 400
+ * (a cold drink is INCLUDED in that price), Family Deal Rs. 1200, Extra Cold Drink Rs. 50.
  * Items with `price: null` show "Price on request" and are confirmed by the restaurant.
  * Set a number (PKR) to show a price and include it in order totals.
  */
@@ -29,6 +29,8 @@ export interface MenuItem {
   price: number | null;
   /** Shows a "Single" / "Double" portion badge on the card. */
   portion?: Portion;
+  /** True when a cold drink is included in the price (shows the bottle and an "included" label; no separate drink price). */
+  drinkIncluded?: boolean;
   /** Built-in artwork to show when there is no photo (defaults to the category's artwork). */
   art?: ArtVariant;
   /** Optional photo, e.g. `image: menuImage("single-biryani.jpg")`. When empty or failing to load, the fallback image or built-in artwork is shown. */
@@ -56,39 +58,55 @@ export const menuImage = (file: string) => `/images/menu/${file}`;
 /** Real biryani photo used on the Home hero and About page. */
 export const BIRYANI_PHOTO = menuImage("chicken-biryani.jpg");
 
+/** The included cold-drink bottle (cropped from the uploaded Star Cola picture), shown on combo cards. */
+export const COLD_DRINK_PHOTO = menuImage("cold-drink-bottle.jpg");
+
 export const menuCategories: MenuCategory[] = [
   { id: "biryani", labelKey: "cat.biryani", art: "biryani" },
+  { id: "pulao", labelKey: "cat.pulao", art: "rice" },
   { id: "deals", labelKey: "cat.deals", art: "deal" },
   { id: "sides", labelKey: "cat.sides", art: "raita" },
-  { id: "drinks", labelKey: "cat.drinks", art: "drink" },
   { id: "extras", labelKey: "cat.extras", art: "salad" },
 ];
 
 export const menuItems: MenuItem[] = [
   {
     id: "single-biryani",
-    name: "Single Biryani",
-    nameUr: "سنگل بریانی",
+    name: "Attock Beef Biryani — Single",
+    nameUr: "اٹک بیف بریانی — سنگل",
     category: "biryani",
-    description: "One generous portion of fragrant basmati rice with tender meat and authentic biryani spices.",
-    descriptionUr: "خوشبودار باسمتی چاول، نرم گوشت اور اصل بریانی مسالوں کے ساتھ ایک بھرپور پورشن۔",
+    description: "A single portion of Attock Beef Biryani with fragrant basmati rice and authentic spices. Cold drink included.",
+    descriptionUr: "اٹک بیف بریانی کا سنگل پورشن، خوشبودار باسمتی چاول اور اصل مسالوں کے ساتھ۔ ٹھنڈا مشروب شامل۔",
     price: 200,
     portion: "single",
+    drinkIncluded: true,
     image: menuImage("single-biryani.jpg"),
     imageFit: "contain",
     featured: true,
   },
   {
     id: "double-biryani",
-    name: "Double Biryani",
-    nameUr: "ڈبل بریانی",
+    name: "Attock Beef Biryani — Double",
+    nameUr: "اٹک بیف بریانی — ڈبل",
     category: "biryani",
-    description: "A double portion of our biryani, ideal for a bigger appetite or for sharing.",
-    descriptionUr: "ہماری بریانی کا ڈبل پورشن، زیادہ بھوک کے لیے یا مل کر کھانے کے لیے موزوں۔",
+    description: "A double portion of Attock Beef Biryani, ideal for a bigger appetite or for sharing. Cold drink included.",
+    descriptionUr: "اٹک بیف بریانی کا ڈبل پورشن، زیادہ بھوک کے لیے یا مل کر کھانے کے لیے موزوں۔ ٹھنڈا مشروب شامل۔",
     price: 400,
     portion: "double",
+    drinkIncluded: true,
     image: menuImage("double-biryani.jpg"),
     imageFit: "contain",
+    featured: true,
+  },
+  {
+    id: "beef-pulao",
+    art: "rice",
+    name: "Attock Beef Pulao",
+    nameUr: "اٹک بیف پلاؤ",
+    category: "pulao",
+    description: "Tender beef cooked with fragrant basmati rice and whole spices in the traditional pulao style.",
+    descriptionUr: "نرم بیف، خوشبودار باسمتی چاول اور ثابت مسالوں کے ساتھ روایتی انداز کا پلاؤ۔",
+    price: null,
     featured: true,
   },
   {
@@ -134,23 +152,22 @@ export const menuItems: MenuItem[] = [
     price: null,
   },
   {
-    id: "star-cola",
-    name: "Star Cola Small Bottle",
-    nameUr: "سٹار کولا چھوٹی بوتل",
-    category: "drinks",
-    description: "A small, ice-cold Star Cola bottle to go with your meal.",
-    descriptionUr: "کھانے کے ساتھ ٹھنڈی ٹھار سٹار کولا کی چھوٹی بوتل۔",
+    id: "extra-cold-drink",
+    name: "Extra Cold Drink (Star Cola Small)",
+    nameUr: "اضافی ٹھنڈا مشروب (سٹار کولا چھوٹی بوتل)",
+    category: "extras",
+    description: "Optional extra. The first cold drink is already included with every biryani.",
+    descriptionUr: "اختیاری اضافہ۔ ہر بریانی کے ساتھ پہلا ٹھنڈا مشروب پہلے ہی شامل ہے۔",
     price: 50,
     image: menuImage("star-cola.jpg"),
     imageFit: "contain",
-    featured: true,
   },
   {
     id: "water",
     art: "water",
     name: "Mineral Water",
     nameUr: "منرل واٹر",
-    category: "drinks",
+    category: "extras",
     description: "Bottled mineral water.",
     descriptionUr: "بوتل بند منرل واٹر۔",
     price: null,

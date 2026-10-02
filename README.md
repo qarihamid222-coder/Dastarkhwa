@@ -1,6 +1,6 @@
-# Karachi Biryani Center
+# Attock Beef Biryani & Pulao
 
-Restaurant website with menu, ordering flow, contact form and location page.
+Restaurant website (Attock Beef Biryani and Attock Beef Pulao, Chitral City) with menu, ordering flow, contact form and location page, in English and Urdu.
 Built with React, TypeScript, Vite and React Router.
 
 ## Run
@@ -26,7 +26,7 @@ npm run preview    # serve the production build locally
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours, Single Biryani Rs. 200, Double Biryani Rs. 400, Star Cola Small Bottle Rs. 50, Family Deal Rs. 1200). Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours). Prices: Attock Beef Biryani Single Rs. 200 and Double Rs. 400 (a cold drink is included in that one combined price), Family Deal Rs. 1200, Extra Cold Drink Rs. 50. Attock Beef Pulao has no price yet and shows "Price on request". Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
 ### Photos (all optional; the site works without them)
 
 Put JPG files (optimised, under about 500 KB) in these places. The original full-size PNGs for the menu cards are kept in `source-images/` (not deployed). Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
@@ -34,11 +34,12 @@ Put JPG files (optimised, under about 500 KB) in these places. The original full
 | File | Where it appears |
 | --- | --- |
 | `public/images/menu/chicken-biryani.jpg` | Home hero and About page |
-| `public/images/menu/single-biryani.jpg` | Single Biryani card |
-| `public/images/menu/double-biryani.jpg` | Double Biryani card |
-| `public/images/menu/star-cola.jpg` | Star Cola Small Bottle card |
+| `public/images/menu/cold-drink-bottle.jpg` | The included cold-drink bottle on the biryani combo cards and Home combo section |
+| `public/images/menu/single-biryani.jpg` | Attock Beef Biryani — Single card |
+| `public/images/menu/double-biryani.jpg` | Attock Beef Biryani — Double card |
+| `public/images/menu/star-cola.jpg` | Extra Cold Drink card |
 | `public/images/menu/family-deal.jpg` | Family Deal card |
-| `public/images/owner.png` | "Meet the owner" card on the About page (portrait about 4:5, transparent PNG or JPG; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
+| `public/images/owner.png` | "Meet the owner" card on the Home and About pages (portrait about 4:5, transparent PNG or JPG; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
 | `public/images/gallery/storefront.jpg`, `interior.jpg`, `dining.jpg`, `counter.jpg` | "Our restaurant" gallery on the About page (only the files that exist are shown) |
 
 To use a photo for another menu item, add `image: menuImage("your-file.jpg")` to that item in `src/data/menu.ts`. Photos are cropped (never stretched) to fit, lazy-loaded, and use meaningful alt text.

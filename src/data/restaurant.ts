@@ -12,10 +12,10 @@ export interface SocialLink {
 }
 
 export const restaurant = {
-  name: "Karachi Biryani Center",
-  tagline: "Authentic Karachi Biryani, Made With Love",
+  name: "Attock Beef Biryani & Pulao",
+  tagline: "Attock Beef Biryani & Attock Beef Pulao",
   shortDescription:
-    "Delicious, aromatic and flavorful biryani made with authentic Pakistani taste.",
+    "Fragrant beef biryani and beef pulao, cooked with authentic Pakistani taste.",
   address: "Chitral City",
   addressUr: "چترال سٹی",
   /** Shown to visitors exactly as provided. */
@@ -33,7 +33,7 @@ export const restaurant = {
   ownerName: "",
   ownerNameUr: "",
   mapSearchUrl:
-    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Karachi Biryani Center, Chitral City"),
+    "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Attock Beef Biryani & Pulao, Chitral City"),
   mapEmbedUrl: (env.VITE_MAP_EMBED_URL as string | undefined) ?? "",
   /** Add the real page URL to show an account in the footer; entries with an empty url are hidden. */
   socialLinks: [

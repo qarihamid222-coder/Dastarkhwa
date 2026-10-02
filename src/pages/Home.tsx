@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { menuItems } from "../data/menu";
+import { COLD_DRINK_PHOTO, getMenuItem, menuItems } from "../data/menu";
 import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
+import { formatPrice } from "../lib/format";
 import { ButtonLink } from "../components/Button";
 import { ContactButtons } from "../components/ContactButtons";
 import { ContactDetails } from "../components/ContactDetails";
 import { HeroMedia } from "../components/HeroMedia";
-import { IconPin } from "../components/Icons";
+import { IconCup, IconPin } from "../components/Icons";
 import { MenuCard } from "../components/MenuCard";
+import { OwnerSection } from "../components/OwnerSection";
 import { Section } from "../components/Section";
 import { WhyChooseUs } from "../components/WhyChooseUs";
 
@@ -15,24 +17,28 @@ export default function Home() {
   usePageMeta();
   const { t } = useI18n();
   const featured = menuItems.filter((i) => i.featured).slice(0, 6);
+  const single = getMenuItem("single-biryani");
+  const double = getMenuItem("double-biryani");
 
   return (
     <>
       <section className="hero" aria-labelledby="hero-title">
         <div className="container hero__grid">
           <div className="hero__copy">
-            <div className="hero__identity">
-              <p className="hero__brand">{t("brand.name")}</p>
-              <p className="hero__place">
-                <IconPin /> {t("brand.place")}
-              </p>
-            </div>
-            <h1 id="hero-title">
-              <span className="hero__line">{t("hero.title1")}</span> <span className="hero__line">{t("hero.title2")}</span>
+            <p className="hero__place">
+              <IconPin /> {t("brand.place")}
+            </p>
+            <h1 id="hero-title" className="hero__title">
+              <span className="hero__line hero__line--1">{t("hero.title1")}</span>{" "}
+              <span className="hero__line hero__line--2">{t("hero.title2")}</span>
             </h1>
+            <p className="hero__tag">{t("hero.tag")}</p>
             <p className="hero__lead">{t("hero.lead")}</p>
+            <p className="hero__combo">
+              <IconCup /> {t("hero.combo")}
+            </p>
             <div className="hero__cta">
-              <ButtonLink to="/order" size="lg">
+              <ButtonLink to="/order" size="lg" className="btn--gold">
                 {t("hero.order")}
               </ButtonLink>
               <ButtonLink to="/menu" variant="light" size="lg">
@@ -49,7 +55,7 @@ export default function Home() {
       </Section>
 
       <Section id="featured" eyebrow={t("home.featuredEyebrow")} title={t("home.featuredTitle")} intro={t("home.featuredIntro")}>
-        <div className="grid-cards">
+        <div className="grid-cards grid-cards--4">
           {featured.map((item) => (
             <MenuCard key={item.id} item={item} />
           ))}
@@ -60,6 +66,36 @@ export default function Home() {
           </ButtonLink>
         </p>
       </Section>
+
+      <Section id="combo" eyebrow={t("home.comboEyebrow")} title={t("home.comboTitle")} tone="dark">
+        <div className="combo">
+          <div className="combo__bottle">
+            <img src={COLD_DRINK_PHOTO} alt={t("menu.drinkAlt")} width={330} height={547} loading="lazy" decoding="async" />
+          </div>
+          <div className="combo__text">
+            <p>{t("home.comboText")}</p>
+            <ul className="combo__prices">
+              {[single, double].map(
+                (i) =>
+                  i && (
+                    <li key={i.id}>
+                      <span>{portionLabel(i, t)}</span>
+                      <strong>{formatPrice(i.price, t)}</strong>
+                    </li>
+                  ),
+              )}
+            </ul>
+            <p className="combo__included">
+              <IconCup /> {t("menu.included")}
+            </p>
+            <ButtonLink to="/menu" className="btn--gold" size="lg">
+              {t("home.comboCta")}
+            </ButtonLink>
+          </div>
+        </div>
+      </Section>
+
+      <OwnerSection variant="home" />
 
       <Section id="why" eyebrow={t("home.whyEyebrow")} title={t("home.whyTitle")} tone="white">
         <WhyChooseUs />
@@ -94,4 +130,9 @@ export default function Home() {
       </Section>
     </>
   );
+}
+
+/** Localized item name for the combo price list. */
+function portionLabel(item: NonNullable<ReturnType<typeof getMenuItem>>, t: ReturnType<typeof useI18n>["t"]) {
+  return item.portion === "double" ? t("portion.double") : t("portion.single");
 }

@@ -72,7 +72,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     const lines: OrderLine[] = stored.flatMap((s) => {
       const item = getMenuItem(s.id);
       return item && isAvailable(item)
-        ? [{ id: item.id, name: item.name, price: item.price, quantity: s.quantity }]
+        ? [{ id: item.id, name: item.drinkIncluded ? `${item.name} (cold drink included)` : item.name, price: item.price, quantity: s.quantity }]
         : [];
     });
     return {

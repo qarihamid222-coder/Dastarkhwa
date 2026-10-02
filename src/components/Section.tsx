@@ -6,7 +6,7 @@ interface Props {
   eyebrow?: string;
   title?: string;
   intro?: string;
-  tone?: "cream" | "white" | "green";
+  tone?: "cream" | "white" | "dark";
   children: ReactNode;
   headingId?: string;
 }

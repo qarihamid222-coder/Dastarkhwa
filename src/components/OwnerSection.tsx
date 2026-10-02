@@ -5,7 +5,7 @@ import { useI18n } from "../i18n/LanguageContext";
 /** Public path of the owner's photo (`public/images/owner.png`); the card stays hidden if the file is missing. */
 export const OWNER_PHOTO = "/images/owner.png";
 
-export function OwnerSection() {
+export function OwnerSection({ variant = "about" }: { variant?: "home" | "about" }) {
   const { lang, t } = useI18n();
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -13,9 +13,9 @@ export function OwnerSection() {
   const name = lang === "ur" ? restaurant.ownerNameUr || restaurant.ownerName : restaurant.ownerName;
 
   return (
-    <section className="section section--white" hidden={!loaded} aria-labelledby="owner-title">
+    <section className={`section ${variant === "home" ? "section--warm owner-section--home" : "section--white"}`} hidden={!loaded} aria-labelledby={`owner-title-${variant}`}>
       <div className="container">
-        <div className="owner">
+        <div className={`owner${variant === "home" ? " owner--compact" : ""}`}>
           <figure className="owner__photo">
             <img
               src={OWNER_PHOTO}
@@ -29,7 +29,7 @@ export function OwnerSection() {
           </figure>
           <div className="owner__text">
             <p className="eyebrow">{t("owner.eyebrow")}</p>
-            <h2 id="owner-title">{t("owner.title")}</h2>
+            <h2 id={`owner-title-${variant}`}>{t("owner.title")}</h2>
             <p>{t("owner.text")}</p>
             {name && <p className="owner__name">{name}</p>}
           </div>

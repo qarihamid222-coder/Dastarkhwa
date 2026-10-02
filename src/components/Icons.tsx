@@ -36,3 +36,4 @@ export const IconPlus = make(<path d="M12 5v14M5 12h14" />);
 export const IconMinus = make(<path d="M5 12h14" />);
 export const IconTrash = make(<><path d="M4 7h16M10 7V4h4v3M6 7l1 13h10l1-13" /></>);
 export const IconSocial = make(<><circle cx="6" cy="12" r="2.5" /><circle cx="18" cy="6" r="2.5" /><circle cx="18" cy="18" r="2.5" /><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6" /></>);
+export const IconCup = make(<><path d="M6 5h12l-1.4 14a2 2 0 0 1-2 1.8H9.4a2 2 0 0 1-2-1.8z" /><path d="M7 10h10" /><path d="M13 5l2-3" /></>);
