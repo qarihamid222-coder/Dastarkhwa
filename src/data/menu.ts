@@ -1,14 +1,16 @@
 /**
  * Central menu data. EDIT THIS FILE to change items, prices, images, categories and availability.
- * Names and descriptions are in English + Urdu. Prices: Attock Beef Biryani Single Rs. 200 and Double Rs. 400
- * (a cold drink is INCLUDED in that price), Family Deal Rs. 1200, Extra Cold Drink Rs. 50.
+ * Names and descriptions are in English + Urdu. Prices: Attock Beef Biryani Single Rs. 200 / Double Rs. 400,
+ * Attock Beef Pulao Single Rs. 450 (includes a small Star Cola) / Double Rs. 500 (includes a Pepsi).
+ * The included cold drinks have NO separate price. Family Deal Rs. 1200, Extra Cold Drink Rs. 50.
  * Items with `price: null` show "Price on request" and are confirmed by the restaurant.
  * Set a number (PKR) to show a price and include it in order totals.
  */
 import type { TranslationKey } from "../i18n/translations";
 import type { Lang } from "../i18n/translations";
 
-export type ArtVariant = "biryani" | "deal" | "rice" | "raita" | "salad" | "drink" | "water";
+export type ArtVariant = "biryani" | "deal" | "rice" | "pulao" | "raita" | "salad" | "drink" | "water";
+export type DrinkKind = "cola" | "pepsi";
 export type Portion = "single" | "double";
 
 export interface MenuCategory {
@@ -29,8 +31,12 @@ export interface MenuItem {
   price: number | null;
   /** Shows a "Single" / "Double" portion badge on the card. */
   portion?: Portion;
-  /** True when a cold drink is included in the price (shows the bottle and an "included" label; no separate drink price). */
-  drinkIncluded?: boolean;
+  /** Which cold drink is INCLUDED in the price (shows its bottle and an "included" label; the drink has no separate price). */
+  drinkIncluded?: DrinkKind;
+  /** Label shown on the included-drink strip (defaults to "Cold drink included"). */
+  includeLabel?: TranslationKey;
+  /** English note added to the WhatsApp order line, e.g. "includes Pepsi". */
+  includeNote?: string;
   /** Built-in artwork to show when there is no photo (defaults to the category's artwork). */
   art?: ArtVariant;
   /** Optional photo, e.g. `image: menuImage("single-biryani.jpg")`. When empty or failing to load, the fallback image or built-in artwork is shown. */
@@ -55,15 +61,16 @@ export interface MenuItem {
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
-/** Real biryani photo used on the Home hero and About page. */
-export const BIRYANI_PHOTO = menuImage("chicken-biryani.jpg");
+/** Beef biryani photo for the Home hero and About page (artwork is shown until the file exists). */
+export const BIRYANI_PHOTO = menuImage("beef-biryani.jpg");
 
-/** The included cold-drink bottle (cropped from the uploaded Star Cola picture), shown on combo cards. */
+/** Included-drink bottles, cropped from the uploaded pictures: small Star Cola and Pepsi. */
 export const COLD_DRINK_PHOTO = menuImage("cold-drink-bottle.jpg");
+export const PEPSI_PHOTO = menuImage("pepsi-bottle.jpg");
 
 export const menuCategories: MenuCategory[] = [
   { id: "biryani", labelKey: "cat.biryani", art: "biryani" },
-  { id: "pulao", labelKey: "cat.pulao", art: "rice" },
+  { id: "pulao", labelKey: "cat.pulao", art: "pulao" },
   { id: "deals", labelKey: "cat.deals", art: "deal" },
   { id: "sides", labelKey: "cat.sides", art: "raita" },
   { id: "extras", labelKey: "cat.extras", art: "salad" },
@@ -79,9 +86,9 @@ export const menuItems: MenuItem[] = [
     descriptionUr: "اٹک بیف بریانی کا سنگل پورشن، خوشبودار باسمتی چاول اور اصل مسالوں کے ساتھ۔ ٹھنڈا مشروب شامل۔",
     price: 200,
     portion: "single",
-    drinkIncluded: true,
-    image: menuImage("single-biryani.jpg"),
-    imageFit: "contain",
+    drinkIncluded: "cola",
+    includeNote: "cold drink included",
+    image: menuImage("beef-biryani-single.jpg"),
     featured: true,
   },
   {
@@ -93,20 +100,41 @@ export const menuItems: MenuItem[] = [
     descriptionUr: "اٹک بیف بریانی کا ڈبل پورشن، زیادہ بھوک کے لیے یا مل کر کھانے کے لیے موزوں۔ ٹھنڈا مشروب شامل۔",
     price: 400,
     portion: "double",
-    drinkIncluded: true,
-    image: menuImage("double-biryani.jpg"),
-    imageFit: "contain",
+    drinkIncluded: "cola",
+    includeNote: "cold drink included",
+    image: menuImage("beef-biryani-double.jpg"),
     featured: true,
   },
   {
-    id: "beef-pulao",
-    art: "rice",
-    name: "Attock Beef Pulao",
-    nameUr: "اٹک بیف پلاؤ",
+    id: "pulao-single",
+    art: "pulao",
+    name: "Attock Beef Pulao — Single",
+    nameUr: "اٹک بیف پلاؤ — سنگل",
     category: "pulao",
-    description: "Tender beef cooked with fragrant basmati rice and whole spices in the traditional pulao style.",
-    descriptionUr: "نرم بیف، خوشبودار باسمتی چاول اور ثابت مسالوں کے ساتھ روایتی انداز کا پلاؤ۔",
-    price: null,
+    description: "A single portion of Attock Beef Pulao: tender beef, fragrant basmati rice and whole spices. Includes one small Star Cola.",
+    descriptionUr: "اٹک بیف پلاؤ کا سنگل پورشن: نرم بیف، خوشبودار باسمتی چاول اور ثابت مسالے۔ ایک چھوٹی سٹار کولا شامل۔",
+    price: 450,
+    portion: "single",
+    drinkIncluded: "cola",
+    includeLabel: "menu.includesCola",
+    includeNote: "includes small Star Cola",
+    image: menuImage("beef-pulao-single.jpg"),
+    featured: true,
+  },
+  {
+    id: "pulao-double",
+    art: "pulao",
+    name: "Attock Beef Pulao — Double",
+    nameUr: "اٹک بیف پلاؤ — ڈبل",
+    category: "pulao",
+    description: "A double portion of Attock Beef Pulao, ideal for a bigger appetite or for sharing. Includes one Pepsi.",
+    descriptionUr: "اٹک بیف پلاؤ کا ڈبل پورشن، زیادہ بھوک کے لیے یا مل کر کھانے کے لیے موزوں۔ ایک پیپسی شامل۔",
+    price: 500,
+    portion: "double",
+    drinkIncluded: "pepsi",
+    includeLabel: "menu.includesPepsi",
+    includeNote: "includes Pepsi",
+    image: menuImage("beef-pulao-double.jpg"),
     featured: true,
   },
   {

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { COLD_DRINK_PHOTO, getMenuItem, menuItems } from "../data/menu";
+import { COLD_DRINK_PHOTO, PEPSI_PHOTO, itemText, menuItems } from "../data/menu";
 import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { formatPrice } from "../lib/format";
@@ -15,10 +15,9 @@ import { WhyChooseUs } from "../components/WhyChooseUs";
 
 export default function Home() {
   usePageMeta();
-  const { t } = useI18n();
-  const featured = menuItems.filter((i) => i.featured).slice(0, 6);
-  const single = getMenuItem("single-biryani");
-  const double = getMenuItem("double-biryani");
+  const { lang, t } = useI18n();
+  const featured = menuItems.filter((i) => i.featured).slice(0, 4);
+  const combos = menuItems.filter((i) => i.drinkIncluded);
 
   return (
     <>
@@ -69,21 +68,25 @@ export default function Home() {
 
       <Section id="combo" eyebrow={t("home.comboEyebrow")} title={t("home.comboTitle")} tone="dark">
         <div className="combo">
-          <div className="combo__bottle">
-            <img src={COLD_DRINK_PHOTO} alt={t("menu.drinkAlt")} width={330} height={547} loading="lazy" decoding="async" />
+          <div className="combo__bottles">
+            <figure>
+              <img src={COLD_DRINK_PHOTO} alt={t("menu.drinkAlt")} width={330} height={547} loading="lazy" decoding="async" />
+              <figcaption>{t("menu.includesCola")}</figcaption>
+            </figure>
+            <figure>
+              <img src={PEPSI_PHOTO} alt={t("menu.pepsiAlt")} width={330} height={742} loading="lazy" decoding="async" />
+              <figcaption>{t("menu.includesPepsi")}</figcaption>
+            </figure>
           </div>
           <div className="combo__text">
             <p>{t("home.comboText")}</p>
             <ul className="combo__prices">
-              {[single, double].map(
-                (i) =>
-                  i && (
-                    <li key={i.id}>
-                      <span>{portionLabel(i, t)}</span>
-                      <strong>{formatPrice(i.price, t)}</strong>
-                    </li>
-                  ),
-              )}
+              {combos.map((i) => (
+                <li key={i.id}>
+                  <span>{itemText(i, lang).name}</span>
+                  <strong>{formatPrice(i.price, t)}</strong>
+                </li>
+              ))}
             </ul>
             <p className="combo__included">
               <IconCup /> {t("menu.included")}
@@ -132,7 +135,3 @@ export default function Home() {
   );
 }
 
-/** Localized item name for the combo price list. */
-function portionLabel(item: NonNullable<ReturnType<typeof getMenuItem>>, t: ReturnType<typeof useI18n>["t"]) {
-  return item.portion === "double" ? t("portion.double") : t("portion.single");
-}

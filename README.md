@@ -26,17 +26,17 @@ npm run preview    # serve the production build locally
 | Colours and spacing | CSS variables at the top of `src/styles/global.css` |
 | Logo | `src/components/Logo.tsx` |
 
-Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours). Prices: Attock Beef Biryani Single Rs. 200 and Double Rs. 400 (a cold drink is included in that one combined price), Family Deal Rs. 1200, Extra Cold Drink Rs. 50. Attock Beef Pulao has no price yet and shows "Price on request". Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
+Only the details supplied by the owner are filled in (address, phone/WhatsApp, email, opening hours). Prices: Attock Beef Biryani Single Rs. 200 / Double Rs. 400 (cold drink included); Attock Beef Pulao Single Rs. 450 (includes one small Star Cola) / Double Rs. 500 (includes one Pepsi); Family Deal Rs. 1200; optional Extra Cold Drink Rs. 50. The included drinks have no separate price. Items with `price: null` display "Price on request" (the restaurant confirms the price); set a number (PKR) to show it and include it in order totals. Social links are hidden until a real URL is added to `socialLinks`. 
 ### Photos (all optional; the site works without them)
 
-Put JPG files (optimised, under about 500 KB) in these places. The original full-size PNGs for the menu cards are kept in `source-images/` (not deployed). Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken.
+Put JPG files (optimised, under about 500 KB) in these places. The original full-size PNGs for the menu cards are kept in `source-images/` (not deployed). Each photo appears automatically once its file exists; until then the site shows built-in artwork or simply hides that section, so nothing looks broken. Beef dishes must only use beef photos: the earlier uploaded chicken pictures (`chicken-biryani.jpg`, `single-biryani.jpg`, `double-biryani.jpg`) are kept in the repository but are not used.
 
 | File | Where it appears |
 | --- | --- |
-| `public/images/menu/chicken-biryani.jpg` | Home hero and About page |
-| `public/images/menu/cold-drink-bottle.jpg` | The included cold-drink bottle on the biryani combo cards and Home combo section |
-| `public/images/menu/single-biryani.jpg` | Attock Beef Biryani — Single card |
-| `public/images/menu/double-biryani.jpg` | Attock Beef Biryani — Double card |
+| `public/images/menu/beef-biryani.jpg` | Home hero and About page (beef biryani photo) |
+| `public/images/menu/beef-biryani-single.jpg`, `beef-biryani-double.jpg` | Attock Beef Biryani — Single / Double cards |
+| `public/images/menu/beef-pulao-single.jpg`, `beef-pulao-double.jpg` | Attock Beef Pulao — Single / Double cards |
+| `public/images/menu/cold-drink-bottle.jpg`, `pepsi-bottle.jpg` | The included Star Cola and Pepsi bottles (cropped from the uploaded pictures) |
 | `public/images/menu/star-cola.jpg` | Extra Cold Drink card |
 | `public/images/menu/family-deal.jpg` | Family Deal card |
 | `public/images/owner.png` | "Meet the owner" card on the Home and About pages (portrait about 4:5, transparent PNG or JPG; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { COLD_DRINK_PHOTO, getCategory, isAvailable, itemText } from "../data/menu";
+import { COLD_DRINK_PHOTO, PEPSI_PHOTO, getCategory, isAvailable, itemText } from "../data/menu";
 import type { MenuItem } from "../data/menu";
 import { formatPrice } from "../lib/format";
 import { useCart } from "../context/CartContext";
@@ -22,22 +22,23 @@ function Plates({ count }: { count: number }) {
   );
 }
 
-/** "Cold drink included" label plus the bottle picture; shown on biryani combo cards. */
-function IncludedDrink() {
+/** "Included" label plus the bottle picture of the drink that comes with the dish (no separate price). */
+function IncludedDrink({ item }: { item: MenuItem }) {
   const { t } = useI18n();
   const [failed, setFailed] = useState(false);
+  const pepsi = item.drinkIncluded === "pepsi";
   return (
     <div className="included">
       <span className="included__label">
-        <IconCup /> {t("menu.included")}
+        <IconCup /> {t(item.includeLabel ?? "menu.included")}
       </span>
       {!failed && (
         <img
           className="included__bottle"
-          src={COLD_DRINK_PHOTO}
-          alt={t("menu.drinkAlt")}
+          src={pepsi ? PEPSI_PHOTO : COLD_DRINK_PHOTO}
+          alt={t(pepsi ? "menu.pepsiAlt" : "menu.drinkAlt")}
           width={330}
-          height={547}
+          height={pepsi ? 742 : 547}
           loading="lazy"
           decoding="async"
           onError={() => setFailed(true)}
@@ -77,7 +78,7 @@ export function MenuCard({ item }: { item: MenuItem }) {
           </span>
         )}
       </div>
-      {item.drinkIncluded && <IncludedDrink />}
+      {item.drinkIncluded && <IncludedDrink item={item} />}
       <div className="card__body">
         {category && <p className="card__cat">{t(category.labelKey)}</p>}
         <h3 className="card__title">{text.name}</h3>

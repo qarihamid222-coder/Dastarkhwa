@@ -42,7 +42,7 @@ function blob(cx: number, cy: number, rx: number, ry: number, rot: number, seed:
 /* ---------- biryani geometry (computed once) ---------- */
 type GrainPalette = { white: string; cream: string; yellow: string; gold: string; orange: string; red: string; herb: string };
 
-function makeGrains(seed: number, count: number, plain = false) {
+function makeGrains(seed: number, count: number, plain: boolean | "pulao" = false) {
   const r = makeRng(seed);
   const paths: Record<keyof GrainPalette, string> = { white: "", cream: "", yellow: "", gold: "", orange: "", red: "", herb: "" };
   let all = "";
@@ -61,9 +61,12 @@ function makeGrains(seed: number, count: number, plain = false) {
     const seg = `M${f(x - dx / 2)} ${f(y - dy / 2)}l${f(dx)} ${f(dy)}`;
     all += seg;
     let v = Math.sin(x * 0.055 + y * 0.11 + 1.3) + 0.6 * Math.sin(x * 0.13 - y * 0.07) + (r() - 0.5) * 0.95 + ((112 - y) / 64) * 0.45;
-    if (plain) v = -0.4 + (r() - 0.5) * 0.4;
+    if (plain === true) v = -0.4 + (r() - 0.5) * 0.4;
     let key: keyof GrainPalette;
-    if (!plain && r() < 0.035) key = "red";
+    if (plain === "pulao") {
+      const q = r();
+      key = q < 0.4 ? "gold" : q < 0.68 ? "yellow" : q < 0.88 ? "cream" : "orange";
+    } else if (!plain && r() < 0.035) key = "red";
     else if (!plain && r() < 0.03) key = "herb";
     else if (v > 1.05) key = "orange";
     else if (v > 0.55) key = "gold";
@@ -96,10 +99,10 @@ const BIRYANI = (() => {
   // chicken pieces: [cx, cy, rx, ry, rot, bone]
   const pieces: { d: string; hl: string; cx: number; cy: number; rx: number; ry: number; bone: boolean; rot: number; specks: [number, number][] }[] = [];
   const defs: [number, number, number, number, number, boolean][] = [
-    [82, 84, 21, 9.5, -0.55, true],
+    [82, 84, 21, 9.5, -0.55, false],
     [128, 68, 22, 10, 0.25, false],
     [104, 97, 20, 9, -0.12, false],
-    [154, 90, 20, 9.5, 0.6, true],
+    [154, 90, 20, 9.5, 0.6, false],
     [64, 102, 16, 8, 0.3, false],
     [142, 106, 15, 7.5, -0.35, false],
   ];
@@ -140,6 +143,7 @@ const BIRYANI = (() => {
 })();
 
 const RICE = (() => makeGrains(5, 760, true))();
+const PULAO = (() => makeGrains(21, 860, "pulao"))();
 
 /* ---------- reusable defs ---------- */
 function Defs() {
@@ -165,6 +169,11 @@ function Defs() {
         <stop offset="0" stopColor="#e07a36" />
         <stop offset=".55" stopColor="#b84a1a" />
         <stop offset="1" stopColor="#7a2a0d" />
+      </radialGradient>
+      <radialGradient id="kbc-beef" cx=".35" cy=".3" r=".9">
+        <stop offset="0" stopColor="#9a5230" />
+        <stop offset=".6" stopColor="#6e3118" />
+        <stop offset="1" stopColor="#40190a" />
       </radialGradient>
       <radialGradient id="kbc-light" cx=".38" cy=".25" r=".9">
         <stop offset="0" stopColor="#fff6dc" stopOpacity=".38" />
@@ -416,6 +425,45 @@ function PlainRice() {
   );
 }
 
+function Pulao() {
+  const chunks: [number, number, number, number, number][] = [[96, 84, 12, 8, -0.4], [126, 74, 13, 8.5, 0.3], [150, 92, 12, 8, 0.5], [112, 98, 12, 8, -0.1], [78, 98, 10, 7, 0.2], [140, 106, 10, 7, -0.3]];
+  return (
+    <g>
+      <ellipse cx="118" cy="158" rx="76" ry="7" fill="#2b1605" opacity=".25" />
+      <path d="M40 112C42 140 70 158 118 158C166 158 194 140 196 112Z" fill="#f4efe3" stroke="#d6cbb0" strokeWidth="2" />
+      <path d="M50 124C74 134 162 134 186 124" fill="none" stroke="#c9b98f" strokeWidth="1.4" opacity=".7" />
+      <ellipse cx="118" cy="112" rx="78" ry="15" fill="#fffdf6" stroke="#d6cbb0" strokeWidth="2" />
+      <clipPath id="kbc-pulao-clip">
+        <path d="M46 112C48 78 84 52 118 52C152 52 188 78 190 112A72 12 0 0 1 46 112Z" />
+      </clipPath>
+      <g clipPath="url(#kbc-pulao-clip)">
+        <rect x="40" y="46" width="156" height="82" fill="#b88a45" />
+        <path d={PULAO.all} transform="translate(.8 1)" stroke="#6b4210" strokeOpacity=".5" strokeWidth="1.9" strokeLinecap="round" fill="none" />
+        <path d={PULAO.paths.cream} stroke="#ecdcae" strokeWidth="1.9" strokeLinecap="round" fill="none" />
+        <path d={PULAO.paths.yellow} stroke="#efc760" strokeWidth="1.9" strokeLinecap="round" fill="none" />
+        <path d={PULAO.paths.gold} stroke="#d9a032" strokeWidth="1.9" strokeLinecap="round" fill="none" />
+        <path d={PULAO.paths.orange} stroke="#c8782a" strokeWidth="1.9" strokeLinecap="round" fill="none" />
+        <rect x="40" y="46" width="156" height="82" fill="url(#kbc-light)" />
+      </g>
+      {chunks.map(([cx, cy, rx, ry, rot], i) => (
+        <g key={i}>
+          <path d={blob(cx, cy, rx, ry, rot, 900 + i)} fill="#3b1406" transform="translate(1 1.4)" opacity=".5" />
+          <path d={blob(cx, cy, rx, ry, rot, 900 + i)} fill="url(#kbc-beef)" stroke="#4a1c0a" strokeWidth=".7" />
+          <path d={blob(cx - rx * 0.2, cy - ry * 0.3, rx * 0.5, ry * 0.35, rot, 950 + i)} fill="#b3703f" opacity=".45" />
+        </g>
+      ))}
+      {BIRYANI.onions.slice(0, 14).map((o, i) => (
+        <path key={i} d={o.d} stroke={o.c} strokeWidth={f(o.w)} strokeLinecap="round" fill="none" />
+      ))}
+      <path d="M40 112A78 15 0 0 0 196 112" fill="none" stroke="#fffdf6" strokeWidth="3" />
+      <g fill="none" stroke="#ffffff" strokeLinecap="round" filter="url(#kbc-blur)" opacity=".7">
+        <path d="M104 50c-6-7 6-12 0-20" strokeWidth="5" />
+        <path d="M130 48c-6-7 6-12 0-20" strokeWidth="5" />
+      </g>
+    </g>
+  );
+}
+
 function Raita() {
   const dots = makeRng(8);
   return (
@@ -508,6 +556,8 @@ function Scene({ variant }: { variant: ArtVariant }) {
       );
     case "rice":
       return <PlainRice />;
+    case "pulao":
+      return <Pulao />;
     case "raita":
       return <Raita />;
     case "salad":

@@ -473,7 +473,11 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 /* Combo (home) */
 .combo { display: grid; gap: 1.75rem; align-items: center; max-width: 900px; margin-inline: auto; }
 .combo__bottle { justify-self: center; }
-.combo__bottle img { display: block; width: 170px; height: auto; aspect-ratio: 330 / 547; object-fit: cover; border-radius: 20px; border: 3px solid rgb(214 163 70 / 75%); box-shadow: 0 24px 50px rgb(0 0 0 / 45%); }
+.combo__bottles { display: flex; gap: 1rem; justify-content: center; align-items: flex-end; }
+.combo__bottles figure { margin: 0; text-align: center; }
+.combo__bottles img { display: block; width: auto; height: 250px; object-fit: contain; border-radius: 18px; border: 3px solid rgb(214 163 70 / 75%); box-shadow: 0 24px 50px rgb(0 0 0 / 45%); background: #1d0a07; }
+.combo__bottles figcaption { margin-top: .5rem; font-size: .8rem; font-weight: 600; color: var(--gold-200); }
+@media (max-width: 380px) { .combo__bottles img { height: 200px; } }
 .combo__text p { color: rgb(255 255 255 / 88%); font-size: 1.08rem; }
 .combo__prices { list-style: none; display: flex; flex-wrap: wrap; gap: .8rem; margin: 1.1rem 0; }
 .combo__prices li { display: grid; gap: .1rem; padding: .6rem 1.2rem; border: 1px solid rgb(214 163 70 / 45%); border-radius: 14px; background: rgb(255 255 255 / 7%); }
@@ -481,13 +485,13 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .combo__prices strong { font-size: 1.5rem; color: var(--gold); line-height: 1.3; }
 .combo__included { display: inline-flex; align-items: center; gap: .5rem; color: var(--gold-200); font-weight: 700; margin: 0 1rem 1rem 0; }
 .combo__included svg { width: 20px; height: 20px; color: var(--gold); }
-@media (min-width: 760px) { .combo { grid-template-columns: 220px 1fr; gap: 3rem; } }
+@media (min-width: 760px) { .combo { grid-template-columns: 320px 1fr; gap: 3rem; } }
 
 /* Included cold drink strip on biryani cards */
 .included { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .5rem 1rem; background: linear-gradient(90deg, var(--deep-900), var(--deep-700)); color: var(--gold-200); font-weight: 700; font-size: .92rem; }
 .included__label { display: inline-flex; align-items: center; gap: .5rem; }
 .included__label svg { width: 20px; height: 20px; color: var(--gold); flex: none; }
-.included__bottle { height: 54px; width: auto; aspect-ratio: 330 / 547; object-fit: cover; border-radius: 10px; border: 2px solid rgb(255 255 255 / 85%); box-shadow: 0 6px 14px rgb(0 0 0 / 40%); transition: transform .3s ease; }
+.included__bottle { height: 58px; width: auto; object-fit: contain; border-radius: 10px; border: 2px solid rgb(255 255 255 / 85%); box-shadow: 0 6px 14px rgb(0 0 0 / 40%); transition: transform .3s ease; }
 .card:hover .included__bottle { transform: translateY(-2px) rotate(-4deg); }
 :root[lang="ur"] .included { font-size: 1rem; }
 
