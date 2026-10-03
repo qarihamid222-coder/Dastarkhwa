@@ -58,7 +58,6 @@ export function MenuCard({ item }: { item: MenuItem }) {
           <p className={`price${item.price === null ? " price--missing" : ""}`}>
             <span className="visually-hidden">{t("menu.price")} </span>
             {formatPrice(item.price, t)}
-            {item.drinkIncluded && <span className="price__note"> · {t("menu.comboPrice")}</span>}
           </p>
           {available ? (
             <Button size="md" onClick={order} aria-label={t("menu.orderItem", { name: text.name })}>
