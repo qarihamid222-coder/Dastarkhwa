@@ -54,13 +54,11 @@ export interface MenuItem {
  * Photo folder: put real photos in `public/images/menu/` (JPG, optimised) and reference them with
  * `menuImage("file.jpg")`. Until a photo exists the built-in artwork is shown.
  *   - pulao-table.jpg     the pulao table photo: Home hero, About page, and every pulao/biryani card
- *   - pulao-single.jpg    optional: a different picture for the Single Pulao card (falls back to pulao-table.jpg)
- *   - pulao-double.jpg    optional: a different picture for the Double Pulao card (falls back to pulao-table.jpg)
  *   - star-cola.jpg       Extra Cold Drink card image
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
-/** The uploaded pulao table photo (artwork is shown until the file exists). */
+/** The uploaded pulao table photo ("Elegant Biryani Feast Table (1).png", web-optimised copy; same picture, unchanged) (artwork is shown until the file exists). */
 export const BIRYANI_PHOTO = menuImage("pulao-table.jpg");
 
 /** Included-drink bottles, cropped from the uploaded pictures: small Star Cola and Pepsi. */
@@ -119,8 +117,7 @@ export const menuItems: MenuItem[] = [
     drinkIncluded: "cola",
     includeLabel: "menu.includesCola",
     includeNote: "includes small Star Cola",
-    image: menuImage("pulao-single.jpg"),
-    imageFallback: BIRYANI_PHOTO,
+    image: BIRYANI_PHOTO,
     imageFit: "contain",
     featured: true,
   },
@@ -137,8 +134,7 @@ export const menuItems: MenuItem[] = [
     drinkIncluded: "pepsi",
     includeLabel: "menu.includesPepsi",
     includeNote: "includes Pepsi",
-    image: menuImage("pulao-double.jpg"),
-    imageFallback: BIRYANI_PHOTO,
+    image: BIRYANI_PHOTO,
     imageFit: "contain",
     featured: true,
   },

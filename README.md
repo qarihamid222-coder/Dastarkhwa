@@ -33,8 +33,7 @@ Put JPG files (optimised, under about 500 KB) in these places. The original full
 
 | File | Where it appears |
 | --- | --- |
-| `public/images/menu/pulao-table.jpg` | The uploaded pulao-on-table photo: Home hero, About page and all pulao/biryani cards (shown unchanged) |
-| `public/images/menu/pulao-single.jpg`, `pulao-double.jpg` | Optional separate Single / Double pulao pictures (fall back to `pulao-table.jpg`) |
+| `public/images/menu/pulao-table.jpg` (web copy of `Elegant Biryani Feast Table (1).png`) | The uploaded pulao-on-table photo: Home hero, About page and all pulao/biryani cards (shown unchanged) |
 | `public/images/menu/star-cola.jpg` | Extra Cold Drink card |
 | `public/images/menu/family-deal.jpg` | Family Deal card |
 | `public/images/owner.png` | "Meet the owner" card on the Home and About pages (portrait about 4:5, transparent PNG or JPG; set `ownerName` / `ownerNameUr` in `src/data/restaurant.ts` to show a name) |
