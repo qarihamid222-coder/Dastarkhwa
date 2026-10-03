@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { COLD_DRINK_PHOTO, PEPSI_PHOTO, itemText, menuItems } from "../data/menu";
+import { itemText, menuItems } from "../data/menu";
 import { useI18n } from "../i18n/LanguageContext";
 import { usePageMeta } from "../hooks/usePageMeta";
 import { formatPrice } from "../lib/format";
@@ -37,7 +37,7 @@ export default function Home() {
               <IconCup /> {t("hero.combo")}
             </p>
             <div className="hero__cta">
-              <ButtonLink to="/order" size="lg" className="btn--gold">
+              <ButtonLink to="/order" size="lg">
                 {t("hero.order")}
               </ButtonLink>
               <ButtonLink to="/menu" variant="light" size="lg">
@@ -68,16 +68,6 @@ export default function Home() {
 
       <Section id="combo" eyebrow={t("home.comboEyebrow")} title={t("home.comboTitle")} tone="dark">
         <div className="combo">
-          <div className="combo__bottles">
-            <figure>
-              <img src={COLD_DRINK_PHOTO} alt={t("menu.drinkAlt")} width={330} height={547} loading="lazy" decoding="async" />
-              <figcaption>{t("menu.includesCola")}</figcaption>
-            </figure>
-            <figure>
-              <img src={PEPSI_PHOTO} alt={t("menu.pepsiAlt")} width={330} height={742} loading="lazy" decoding="async" />
-              <figcaption>{t("menu.includesPepsi")}</figcaption>
-            </figure>
-          </div>
           <div className="combo__text">
             <p>{t("home.comboText")}</p>
             <ul className="combo__prices">

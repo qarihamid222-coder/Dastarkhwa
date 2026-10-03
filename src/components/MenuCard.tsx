@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { COLD_DRINK_PHOTO, PEPSI_PHOTO, getCategory, isAvailable, itemText } from "../data/menu";
+import { getCategory, isAvailable, itemText } from "../data/menu";
 import type { MenuItem } from "../data/menu";
 import { formatPrice } from "../lib/format";
 import { useCart } from "../context/CartContext";
 import { useI18n } from "../i18n/LanguageContext";
 import { Button } from "./Button";
 import { FoodImage } from "./FoodImage";
-import { IconCup } from "./Icons";
 
 function Plates({ count }: { count: number }) {
   return (
@@ -19,32 +17,6 @@ function Plates({ count }: { count: number }) {
         </svg>
       ))}
     </span>
-  );
-}
-
-/** "Included" label plus the bottle picture of the drink that comes with the dish (no separate price). */
-function IncludedDrink({ item }: { item: MenuItem }) {
-  const { t } = useI18n();
-  const [failed, setFailed] = useState(false);
-  const pepsi = item.drinkIncluded === "pepsi";
-  return (
-    <div className="included">
-      <span className="included__label">
-        <IconCup /> {t(item.includeLabel ?? "menu.included")}
-      </span>
-      {!failed && (
-        <img
-          className="included__bottle"
-          src={pepsi ? PEPSI_PHOTO : COLD_DRINK_PHOTO}
-          alt={t(pepsi ? "menu.pepsiAlt" : "menu.drinkAlt")}
-          width={330}
-          height={pepsi ? 742 : 547}
-          loading="lazy"
-          decoding="async"
-          onError={() => setFailed(true)}
-        />
-      )}
-    </div>
   );
 }
 
@@ -78,7 +50,6 @@ export function MenuCard({ item }: { item: MenuItem }) {
           </span>
         )}
       </div>
-      {item.drinkIncluded && <IncludedDrink item={item} />}
       <div className="card__body">
         {category && <p className="card__cat">{t(category.labelKey)}</p>}
         <h3 className="card__title">{text.name}</h3>

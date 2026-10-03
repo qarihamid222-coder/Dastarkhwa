@@ -51,18 +51,17 @@ export interface MenuItem {
 }
 
 /**
- * Photo folder: put real photos in `public/images/menu/` (about 1200x900, JPG) and reference them with
- * `menuImage("file.jpg")`. Until a photo exists the fallback image or built-in artwork is shown.
- *   - chicken-biryani.jpg  biryani photo used on the Home hero and About page
- *   - single-biryani.jpg   Single Biryani card image
- *   - double-biryani.jpg   Double Biryani card image
- *   - star-cola.jpg        Star Cola Small Bottle card image
- *   - family-deal.jpg      Family Deal card image
+ * Photo folder: put real photos in `public/images/menu/` (JPG, optimised) and reference them with
+ * `menuImage("file.jpg")`. Until a photo exists the built-in artwork is shown.
+ *   - pulao-table.jpg     the pulao table photo: Home hero, About page, and every pulao/biryani card
+ *   - pulao-single.jpg    optional: a different picture for the Single Pulao card (falls back to pulao-table.jpg)
+ *   - pulao-double.jpg    optional: a different picture for the Double Pulao card (falls back to pulao-table.jpg)
+ *   - star-cola.jpg       Extra Cold Drink card image
  */
 export const menuImage = (file: string) => `/images/menu/${file}`;
 
-/** Beef biryani photo for the Home hero and About page (artwork is shown until the file exists). */
-export const BIRYANI_PHOTO = menuImage("beef-biryani.jpg");
+/** The uploaded pulao table photo (artwork is shown until the file exists). */
+export const BIRYANI_PHOTO = menuImage("pulao-table.jpg");
 
 /** Included-drink bottles, cropped from the uploaded pictures: small Star Cola and Pepsi. */
 export const COLD_DRINK_PHOTO = menuImage("cold-drink-bottle.jpg");
@@ -88,7 +87,8 @@ export const menuItems: MenuItem[] = [
     portion: "single",
     drinkIncluded: "cola",
     includeNote: "cold drink included",
-    image: menuImage("beef-biryani-single.jpg"),
+    image: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {
@@ -102,7 +102,8 @@ export const menuItems: MenuItem[] = [
     portion: "double",
     drinkIncluded: "cola",
     includeNote: "cold drink included",
-    image: menuImage("beef-biryani-double.jpg"),
+    image: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {
@@ -118,7 +119,9 @@ export const menuItems: MenuItem[] = [
     drinkIncluded: "cola",
     includeLabel: "menu.includesCola",
     includeNote: "includes small Star Cola",
-    image: menuImage("beef-pulao-single.jpg"),
+    image: menuImage("pulao-single.jpg"),
+    imageFallback: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {
@@ -134,7 +137,9 @@ export const menuItems: MenuItem[] = [
     drinkIncluded: "pepsi",
     includeLabel: "menu.includesPepsi",
     includeNote: "includes Pepsi",
-    image: menuImage("beef-pulao-double.jpg"),
+    image: menuImage("pulao-double.jpg"),
+    imageFallback: BIRYANI_PHOTO,
+    imageFit: "contain",
     featured: true,
   },
   {

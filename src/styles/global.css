@@ -1,19 +1,19 @@
 /* ===== Tokens ===== */
 :root {
-  --deep-900: #2b0e0b;
-  --deep-800: #431611;
-  --deep-700: #6a2519;
-  --maroon: #9b1c24;
-  --maroon-700: #7d141b;
-  --gold: #d6a346;
-  --gold-600: #b98a32;
-  --gold-200: #f3dfae;
-  --cream: #fbf5ea;
-  --cream-200: #f3ead6;
+  --deep-900: #c8102e;
+  --deep-800: #a60d26;
+  --deep-700: #8b0a1f;
+  --maroon: #c8102e;
+  --maroon-700: #a30d25;
+  --gold: #f2b01e;
+  --gold-600: #d99a0b;
+  --gold-200: #ffe9a8;
+  --cream: #fffaf0;
+  --cream-200: #fdf0d5;
   --white: #ffffff;
-  --ink: #26201b;
-  --muted: #5c564b;
-  --line: #e4d9c0;
+  --ink: #3a1d16;
+  --muted: #6b4d44;
+  --line: #f0dca5;
   --danger: #a4232f;
   --ok: #17694a;
   --radius: 16px;
@@ -76,7 +76,7 @@ main:focus { outline: none; }
 .btn svg { width: 18px; height: 18px; }
 .btn--lg { min-height: 52px; padding: .9rem 1.9rem; font-size: 1rem; }
 .btn--block { width: 100%; }
-.btn--primary { background: linear-gradient(180deg, #b32a31, var(--maroon)); color: var(--white); box-shadow: var(--shadow-sm); }
+.btn--primary { background: linear-gradient(180deg, #dd1b33, #b60f26); color: var(--white); box-shadow: var(--shadow-sm); }
 .btn--primary:hover { background: var(--maroon-700); color: var(--white); transform: translateY(-2px); box-shadow: var(--shadow); }
 .btn--secondary { background: transparent; color: var(--deep-800); border-color: var(--deep-800); }
 .btn--secondary:hover { background: var(--deep-800); color: var(--white); transform: translateY(-2px); }
@@ -427,8 +427,8 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 [hidden] { display: none !important; }
 
 /* ===== Poster-style card images: show the whole picture, never cropped or stretched ===== */
-.food-image--contain { position: relative; background: #2a1a10; }
-.food-image--contain .food-image__backdrop { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(18px) brightness(.7) saturate(1.1); }
+.food-image--contain { position: relative; background: var(--cream-200); }
+.food-image--contain .food-image__backdrop { position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover; filter: blur(18px) brightness(1.08) saturate(1.1); opacity: .85; }
 .food-image--contain .food-image__main { position: relative; object-fit: contain; }
 
 /* =====================================================================
@@ -487,13 +487,6 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .combo__included svg { width: 20px; height: 20px; color: var(--gold); }
 @media (min-width: 760px) { .combo { grid-template-columns: 320px 1fr; gap: 3rem; } }
 
-/* Included cold drink strip on biryani cards */
-.included { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .5rem 1rem; background: linear-gradient(90deg, var(--deep-900), var(--deep-700)); color: var(--gold-200); font-weight: 700; font-size: .92rem; }
-.included__label { display: inline-flex; align-items: center; gap: .5rem; }
-.included__label svg { width: 20px; height: 20px; color: var(--gold); flex: none; }
-.included__bottle { height: 58px; width: auto; object-fit: contain; border-radius: 10px; border: 2px solid rgb(255 255 255 / 85%); box-shadow: 0 6px 14px rgb(0 0 0 / 40%); transition: transform .3s ease; }
-.card:hover .included__bottle { transform: translateY(-2px) rotate(-4deg); }
-:root[lang="ur"] .included { font-size: 1rem; }
 
 /* Menu groups + combo banner */
 .menu-banner { display: flex; align-items: center; gap: 1rem; max-width: 780px; margin: 0 auto 1.75rem; padding: .85rem 1.25rem; border: 1px solid rgb(214 163 70 / 70%); border-radius: 16px; background: linear-gradient(90deg, #fff9ea, #fbefd2); box-shadow: var(--shadow-sm); }
@@ -528,9 +521,65 @@ input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px
 .btn:active { transform: scale(.98); }
 @media (prefers-reduced-motion: reduce) {
   .hero__copy > *, .hero__art, .reveal.is-visible .grid-cards > *, .reveal.is-visible .features > * { animation: none !important; }
-  .card:hover .food-image__main, .card:hover .included__bottle { transform: none; }
+  .card:hover .food-image__main { transform: none; }
 }
 
 /* Home featured row: four cards on wide screens, two on tablets */
 @media (min-width: 640px) { .grid-cards--4 { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1040px) { .grid-cards--4 { grid-template-columns: repeat(4, 1fr); } }
+
+/* =====================================================================
+   RED & GOLDEN-YELLOW THEME — bright, warm, clean (no dark backgrounds)
+   ===================================================================== */
+.header { background: rgb(255 250 240 / 96%); box-shadow: 0 1px 0 rgb(242 176 30 / 60%); }
+.logo__bottom { color: #b07100; }
+.btn--gold { background: linear-gradient(180deg, #ffd34f, #f2b01e); color: #5a0a12; border-color: #f2b01e; box-shadow: 0 6px 18px rgb(242 176 30 / 38%); }
+.btn--gold:hover { color: #5a0a12; box-shadow: 0 10px 26px rgb(242 176 30 / 50%); }
+.section--cream { background: linear-gradient(180deg, var(--cream), #fdf0d5); }
+.card { border-color: #f3dfa9; box-shadow: 0 4px 16px rgb(122 10 27 / 8%); }
+.card:hover { box-shadow: 0 14px 34px rgb(122 10 27 / 16%); }
+.card--double { box-shadow: 0 10px 30px rgb(242 176 30 / 35%); }
+
+/* Hero: light cream with red type and golden accents */
+.hero { color: var(--ink); background: radial-gradient(900px 480px at 88% 10%, rgb(242 176 30 / 32%), transparent 60%), radial-gradient(700px 380px at 0% 100%, rgb(200 16 46 / 9%), transparent 65%), linear-gradient(135deg, #fffaf0, #fff0c8 80%); }
+.hero::before { opacity: .22; background-image: radial-gradient(var(--gold-600) 1.2px, transparent 1.2px); }
+.hero__place { color: var(--deep-900); background: rgb(255 255 255 / 75%); border-color: var(--gold); font-weight: 600; }
+.hero__place svg { color: var(--deep-900); }
+.hero__title { color: var(--deep-900); text-shadow: none; }
+.hero__line--2 { color: #b07100; }
+.hero__tag { color: var(--deep-800); }
+.hero__lead { color: var(--ink); }
+.hero__combo { color: var(--deep-800); background: rgb(242 176 30 / 24%); border-color: var(--gold); }
+.hero__combo svg { color: var(--deep-900); }
+.hero .btn--light { color: var(--deep-900); border-color: var(--deep-900); }
+.hero .btn--light:hover { background: var(--deep-900); color: var(--white); }
+.hero__photo { border: 4px solid var(--white); box-shadow: 0 0 0 3px var(--gold), 0 24px 44px rgb(122 10 27 / 25%); background: var(--cream-200); aspect-ratio: 3 / 2; object-fit: cover; }
+.hero__plate { filter: drop-shadow(0 20px 26px rgb(122 10 27 / 25%)); }
+:root[lang="ur"] .hero__title { text-shadow: none; }
+
+/* Inner page banners and footer: bright red with gold trim */
+.page-hero { background: radial-gradient(700px 300px at 80% 0%, rgb(242 176 30 / 38%), transparent 60%), linear-gradient(135deg, #d8182f, #b00e25); border-bottom: 4px solid var(--gold); }
+.page-hero h1 { color: var(--white); }
+.page-hero p { color: rgb(255 255 255 / 94%); }
+.footer { background: linear-gradient(180deg, #c8102e, #a60d26); border-top: 4px solid var(--gold); color: rgb(255 255 255 / 92%); }
+.footer__heading { color: var(--gold-200); }
+.footer a:hover { color: var(--gold-200); }
+.footer .details__icon { background: rgb(255 255 255 / 18%); }
+.footer .details__label { color: rgb(255 255 255 / 80%); }
+.footer .placeholder { color: var(--gold-200); }
+.footer .font-picker label { color: var(--gold-200); }
+.footer__bottom { border-top-color: rgb(255 255 255 / 25%); }
+
+/* Combo section: sunny golden-yellow instead of dark */
+.section--dark { color: var(--ink); background: radial-gradient(700px 340px at 85% 20%, rgb(255 255 255 / 55%), transparent 60%), linear-gradient(135deg, #fff3c7, #ffe08a); }
+.section--dark h2 { color: var(--deep-900); }
+.section--dark .eyebrow { color: var(--deep-800); }
+.section--dark .section__head h2::after { background: linear-gradient(90deg, transparent, var(--deep-900), transparent); }
+.combo__text p { color: var(--ink); }
+.combo__bottles img { border-color: var(--white); background: var(--white); box-shadow: 0 0 0 3px var(--gold), 0 18px 36px rgb(122 10 27 / 25%); }
+.combo__bottles figcaption { color: var(--deep-800); }
+.combo__prices li { background: var(--white); border-color: var(--gold); box-shadow: 0 6px 16px rgb(122 10 27 / 10%); }
+.combo__prices span { color: var(--deep-800); }
+.combo__prices strong { color: var(--deep-900); }
+.combo__included { color: var(--deep-800); }
+.combo__included svg { color: var(--deep-900); }

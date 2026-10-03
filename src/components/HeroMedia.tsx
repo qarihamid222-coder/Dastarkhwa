@@ -22,8 +22,8 @@ export function HeroMedia() {
         className="hero__photo"
         src={BIRYANI_PHOTO}
         alt={t("photo.biryaniAlt")}
-        width={1200}
-        height={900}
+        width={1536}
+        height={1024}
         decoding="async"
         fetchPriority="high"
         onError={() => setFailed(true)}
